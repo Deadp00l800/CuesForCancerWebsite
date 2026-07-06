@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Upcoming Cues for Cancer Inc. workshops, performances, and community events — RSVP or get tickets." />
+<title>Events — Cues for Cancer Inc.</title>
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" />
+      <span class="brand-text">Cues for Cancer</span>
+    </a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="has-dropdown">
+        <a href="about.html" class="nav-link">About
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="about.html#story"><strong>Our Story</strong><span>How Cues for Cancer began</span></a>
+          <a href="about.html#programs"><strong>Mission &amp; Programs</strong><span>What we do and why</span></a>
+          <a href="about.html#faq"><strong>FAQ</strong><span>Common questions answered</span></a>
+        </div>
+      </div>
+      <a href="team.html" class="nav-link">Our Team</a>
+      <a href="events.html" class="nav-link is-active">Events</a>
+      <div class="has-dropdown">
+        <a href="get-involved.html" class="nav-link">Get Involved
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener"><strong>Donate</strong><span>Fuel a program or event</span></a>
+          <a href="get-involved.html#volunteer"><strong>Volunteer</strong><span>Share your time and talent</span></a>
+          <a href="get-involved.html#events"><strong>Host an Event</strong><span>Bring Cues for Cancer to your stage</span></a>
+          <a href="get-involved.html#partners"><strong>Corporate Partners</strong><span>Sponsor our mission</span></a>
+        </div>
+      </div>
+      <a href="index.html#stories" class="nav-link">Stories</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <div class="nav-cta"><a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener" class="btn btn-primary">Donate Now</a></div>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero hero--sub">
+  <video class="hero-media" autoplay muted loop playsinline poster="assets/img/events-poster.jpg">
+    <source src="assets/video/hero.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content container">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> Events</div>
+    <h1>Upcoming Workshops &amp; Events</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Join Us</span>
+      <h2>Find an event and RSVP</h2>
+      <p>Select a highlighted date on the calendar, or pick an event from the list, to see details and how to join.</p>
+    </div>
+
+    <div class="events-layout">
+      <div class="calendar-card reveal">
+        <div class="events-toolbar">
+          <button type="button" class="cal-nav-btn" id="cal-prev" aria-label="Previous month">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <h3 id="cal-month-label">Month Year</h3>
+          <button type="button" class="cal-nav-btn" id="cal-next" aria-label="Next month">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+        <div class="calendar-grid" id="cal-grid"></div>
+      </div>
+
+      <div class="agenda-card reveal">
+        <h3 style="margin-bottom:1.1rem;">Upcoming</h3>
+        <div class="agenda-list" id="agenda-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <div>
+        <h2>Want us to host an event at your venue?</h2>
+        <p>We partner with theatres, schools, and community spaces across the region.</p>
+      </div>
+      <a href="get-involved.html#events" class="btn btn-primary">Host an Event</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand"><img src="assets/img/logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" /><span class="brand-text">Cues for Cancer</span></span>
+        <p class="footer-desc">A Norfolk, Virginia nonprofit inspiring hope on and off the stage for those affected by cancer through community, creativity, and connection.</p>
+        <div class="social-row">
+          <a href="https://www.facebook.com/share/g/1FNCP6JNWV/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6v1.9H16l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="https://www.instagram.com/cues.for.cancer?igsh=cW1pazM3dW5zMWZ4&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://www.linkedin.com/company/cuesforcancer/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 3 5a2 2 0 0 1 3.94 0zM3.5 8.75h3.4V21H3.5V8.75zM9.5 8.75h3.26v1.68h.05c.45-.86 1.56-1.77 3.22-1.77 3.44 0 4.07 2.27 4.07 5.22V21h-3.4v-6.42c0-1.53-.03-3.5-2.13-3.5-2.14 0-2.47 1.67-2.47 3.39V21H9.5V8.75z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="index.html#stories">Stories</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener">Donate</a></li>
+          <li><a href="get-involved.html#volunteer">Volunteer</a></li>
+          <li><a href="get-involved.html#events">Host an Event</a></li>
+          <li><a href="get-involved.html#partners">Corporate Partners</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Norfolk, Virginia</li>
+          <li><a href="mailto:Darrell@cues4cancer.com">Darrell@cues4cancer.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Cues for Cancer Inc. All rights reserved.</span>
+      <span>501(c)(3) Nonprofit Organization</span>
+    </div>
+  </div>
+</footer>
+
+<div class="popup" id="event-modal">
+  <div class="event-modal-content">
+    <button id="event-modal-close" aria-label="Close" style="position:absolute;top:.9rem;right:.9rem;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gray-700);">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div id="event-modal-body"></div>
+  </div>
+</div>
+
+<div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+  <div class="popup-content">
+    <button id="popup-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="card-icon" style="margin:0 auto 1rem;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+    </div>
+    <h3 id="popup-title">Stay in the loop</h3>
+    <p style="margin:.5rem 0 1.25rem;">Join our mailing list for stories, upcoming events, and ways to help.</p>
+    <form id="popup-form">
+      <input type="email" id="popup-email" placeholder="Enter your email" required />
+      <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/events.js"></script>
+</body>
+</html>
