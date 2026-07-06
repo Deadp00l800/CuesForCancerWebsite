@@ -1,0 +1,223 @@
+/* Cues for Cancer Inc. — events calendar
+   To add a workshop or event: add an object to the EVENTS array below.
+   date must be in "YYYY-MM-DD" format. action.label is the button text
+   ("RSVP" for free events, "Get Tickets" for ticketed ones) and action.url
+   is where it goes — a mailto: link, a Google Form, Eventbrite, etc. */
+const EVENTS = [
+  {
+    id: 'creative-spark-aug',
+    title: 'Creative Spark Workshop: Finding Your Voice',
+    date: '2026-08-08',
+    time: '6:00 PM – 8:00 PM',
+    location: 'Norfolk Theatre Arts Center, Norfolk, VA',
+    type: 'Workshop',
+    description: [
+      'A theatre and music-based workshop for anyone touched by a cancer diagnosis — patients, survivors, and family members welcome. No performing experience necessary.',
+      'Light refreshments provided. Space is limited to 20 participants, so please RSVP in advance.',
+    ],
+    action: { label: 'RSVP', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Creative%20Spark%20Workshop%20(Aug%208)' },
+  },
+  {
+    id: 'inspiring-hope-gala',
+    title: 'Inspiring Hope Gala & Performance',
+    date: '2026-09-19',
+    time: '7:00 PM – 10:00 PM',
+    location: 'The Wells Theatre, Norfolk, VA',
+    type: 'Fundraiser',
+    description: [
+      'Our flagship annual fundraiser — an evening of live performances from members of our theatre community, storytelling from survivors, and a silent auction.',
+      'All proceeds directly fund Creative Spark workshops and Community Support Events for the coming year.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off' },
+  },
+  {
+    id: 'community-picnic-sept',
+    title: 'Community Support Picnic',
+    date: '2026-09-27',
+    time: '11:00 AM – 2:00 PM',
+    location: 'Town Point Park, Norfolk, VA',
+    type: 'Community',
+    description: [
+      'A relaxed, family-friendly picnic for survivors and their loved ones to connect with the Cues for Cancer community.',
+      'Free to attend. Bring a dish to share if you\'re able — but it\'s not required.',
+    ],
+    action: { label: 'RSVP', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Community%20Support%20Picnic' },
+  },
+  {
+    id: 'workshop-oct',
+    title: 'Creative Spark Workshop: Storytelling Through Song',
+    date: '2026-10-10',
+    time: '6:00 PM – 8:00 PM',
+    location: 'Norfolk Theatre Arts Center, Norfolk, VA',
+    type: 'Workshop',
+    description: [
+      'A guided songwriting and performance workshop exploring how music can process and express the experience of a cancer diagnosis.',
+      'Open to all skill levels. Space is limited — please RSVP.',
+    ],
+    action: { label: 'RSVP', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Creative%20Spark%20Workshop%20(Oct%2010)' },
+  },
+];
+
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+let viewYear, viewMonth;
+
+function toISODate(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function eventsOnDate(iso) {
+  return EVENTS.filter((e) => e.date === iso);
+}
+
+function formatLongDate(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  const date = new Date(y, m - 1, d);
+  return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+function formatShort(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return { month: MONTH_NAMES[m - 1].slice(0, 3).toUpperCase(), day: d };
+}
+
+function tagClass(type) {
+  return type === 'Fundraiser' || type === 'Performance' ? 'event-tag event-tag--gold' : 'event-tag';
+}
+
+function eventCardHTML(ev) {
+  return `
+    <div class="event-card">
+      <div class="event-card-head">
+        <span class="${tagClass(ev.type)}">${ev.type}</span>
+        <h3>${ev.title}</h3>
+      </div>
+      <div class="event-meta">
+        <span>${formatLongDate(ev.date)}</span>
+        <span>${ev.time}</span>
+        <span>${ev.location}</span>
+      </div>
+      <div class="event-desc">${ev.description.map((p) => `<p>${p}</p>`).join('')}</div>
+      <a href="${ev.action.url}" ${ev.action.url.startsWith('mailto:') ? '' : 'target="_blank" rel="noopener"'} class="btn btn-primary">${ev.action.label}</a>
+    </div>
+  `;
+}
+
+function openEventModal(evs) {
+  const modal = document.getElementById('event-modal');
+  const body = document.getElementById('event-modal-body');
+  body.innerHTML = evs.map(eventCardHTML).join('<hr class="event-divider" />');
+  modal.classList.add('is-visible');
+}
+
+function closeEventModal() {
+  document.getElementById('event-modal').classList.remove('is-visible');
+}
+
+function renderCalendar() {
+  const label = document.getElementById('cal-month-label');
+  const grid = document.getElementById('cal-grid');
+  if (!label || !grid) return;
+
+  label.textContent = `${MONTH_NAMES[viewMonth]} ${viewYear}`;
+
+  const firstOfMonth = new Date(viewYear, viewMonth, 1);
+  const startOffset = firstOfMonth.getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7;
+  const todayISO = toISODate(new Date());
+
+  const gridStart = new Date(viewYear, viewMonth, 1 - startOffset);
+
+  const cells = [];
+  for (let i = 0; i < totalCells; i++) {
+    const cellDate = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
+    cells.push({ date: cellDate, inMonth: cellDate.getMonth() === viewMonth });
+  }
+
+  grid.innerHTML = WEEKDAYS.map((w) => `<div class="calendar-weekday">${w}</div>`).join('') +
+    cells.map((cell) => {
+      const iso = toISODate(cell.date);
+      const dayEvents = cell.inMonth ? eventsOnDate(iso) : [];
+      const isToday = iso === todayISO;
+      const classes = ['calendar-day'];
+      if (!cell.inMonth) classes.push('is-other-month');
+      if (isToday) classes.push('is-today');
+      if (dayEvents.length) classes.push('has-event');
+      const dots = dayEvents.slice(0, 3).map(() => '<span class="calendar-dot"></span>').join('');
+      return `<button type="button" class="${classes.join(' ')}" data-date="${iso}" ${dayEvents.length ? '' : 'tabindex="-1"'}>
+        <span class="day-num">${cell.date.getDate()}</span>
+        <span class="calendar-dots">${dots}</span>
+      </button>`;
+    }).join('');
+
+  grid.querySelectorAll('.calendar-day.has-event').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const iso = btn.getAttribute('data-date');
+      openEventModal(eventsOnDate(iso));
+    });
+  });
+}
+
+function renderAgenda() {
+  const list = document.getElementById('agenda-list');
+  if (!list) return;
+  const todayISO = toISODate(new Date());
+  const upcoming = EVENTS.filter((e) => e.date >= todayISO).sort((a, b) => a.date.localeCompare(b.date));
+
+  if (!upcoming.length) {
+    list.innerHTML = '<p>No upcoming events are scheduled right now — check back soon.</p>';
+    return;
+  }
+
+  list.innerHTML = upcoming.map((ev) => {
+    const short = formatShort(ev.date);
+    return `
+      <button type="button" class="agenda-item" data-id="${ev.id}">
+        <span class="agenda-date"><span class="agenda-month">${short.month}</span><span class="agenda-day">${short.day}</span></span>
+        <span class="agenda-info">
+          <span class="agenda-title">${ev.title}</span>
+          <span class="agenda-sub">${ev.time} · ${ev.location}</span>
+        </span>
+        <span class="${tagClass(ev.type)}">${ev.type}</span>
+      </button>
+    `;
+  }).join('');
+
+  list.querySelectorAll('.agenda-item').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const ev = EVENTS.find((e) => e.id === btn.getAttribute('data-id'));
+      if (ev) openEventModal([ev]);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('cal-grid');
+  if (!grid) return;
+
+  const today = new Date();
+  viewYear = today.getFullYear();
+  viewMonth = today.getMonth();
+
+  renderCalendar();
+  renderAgenda();
+
+  document.getElementById('cal-prev').addEventListener('click', () => {
+    viewMonth -= 1;
+    if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; }
+    renderCalendar();
+  });
+  document.getElementById('cal-next').addEventListener('click', () => {
+    viewMonth += 1;
+    if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
+    renderCalendar();
+  });
+
+  document.getElementById('event-modal-close').addEventListener('click', closeEventModal);
+  document.getElementById('event-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'event-modal') closeEventModal();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeEventModal(); });
+});
