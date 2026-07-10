@@ -1,785 +1,195 @@
-/* ==========================================================================
-   Cues for Cancer Inc. — Modern site stylesheet
-   ========================================================================== */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Get in touch with Cues for Cancer Inc. — questions, partnerships, event bookings, and more." />
+<title>Contact — Cues for Cancer Inc.</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
 
-/* --- Reset --- */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-img, video { max-width: 100%; display: block; }
-button { font: inherit; cursor: pointer; border: none; background: none; }
-a { color: inherit; text-decoration: none; }
-ul { list-style: none; }
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" />
+      <span class="brand-text">Cues for Cancer</span>
+    </a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="has-dropdown">
+        <a href="about.html" class="nav-link">About
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="about.html#story"><strong>Our Story</strong><span>How Cues for Cancer began</span></a>
+          <a href="about.html#programs"><strong>Mission &amp; Programs</strong><span>What we do and why</span></a>
+          <a href="about.html#faq"><strong>FAQ</strong><span>Common questions answered</span></a>
+        </div>
+      </div>
+      <a href="team.html" class="nav-link">Our Team</a>
+      <a href="events.html" class="nav-link">Events</a>
+      <div class="has-dropdown">
+        <a href="get-involved.html" class="nav-link">Get Involved
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener"><strong>Donate</strong><span>Fuel a program or event</span></a>
+          <a href="get-involved.html#volunteer"><strong>Volunteer</strong><span>Share your time and talent</span></a>
+          <a href="get-involved.html#events"><strong>Host an Event</strong><span>Bring Cues for Cancer to your stage</span></a>
+          <a href="get-involved.html#partners"><strong>Corporate Partners</strong><span>Sponsor our mission</span></a>
+        </div>
+      </div>
+      <a href="index.html#stories" class="nav-link">Stories</a>
+      <a href="contact.html" class="nav-link is-active">Contact</a>
+      <div class="nav-cta"><a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener" class="btn btn-primary">Donate Now</a></div>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
 
-/* --- Design tokens --- */
-:root {
-  --purple-900: #2a1a4a;
-  --purple-700: #4B2E83;
-  --purple-500: #7c5cc9;
-  --purple-100: #efe9f9;
-  --gold: #d9a441;
-  --gold-dark: #b7822b;
-  --cream: #f7f2ec;
-  --white: #ffffff;
-  --ink: #1a1a1a;
-  --gray-700: #5f5f66;
-  --gray-300: #d8d5df;
-  --shadow-sm: 0 2px 10px rgba(42, 26, 74, 0.08);
-  --shadow-md: 0 10px 30px rgba(42, 26, 74, 0.14);
-  --shadow-lg: 0 20px 60px rgba(42, 26, 74, 0.22);
-  --radius: 16px;
-  --radius-sm: 10px;
-  --container: 1180px;
-  --nav-h: 76px;
-  --ff-head: 'Playfair Display', serif;
-  --ff-body: 'Open Sans', sans-serif;
-  --ease: cubic-bezier(.4, 0, .2, 1);
-}
+<section class="hero hero--sub">
+  <video class="hero-media" autoplay muted loop playsinline poster="contact-poster.jpg">
+    <source src="hero.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content container">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> Contact</div>
+    <h1>We'd Love to Hear From You</h1>
+  </div>
+</section>
 
-body {
-  font-family: var(--ff-body);
-  color: var(--ink);
-  background: var(--white);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-}
+<section class="section">
+  <div class="container">
+    <div class="grid grid--2" style="align-items:start;gap:3rem;">
+      <div class="reveal">
+        <span class="eyebrow">Get in Touch</span>
+        <h2>Send us a message</h2>
+        <p style="margin-bottom:1.5rem;">Questions about our programs, event bookings, or partnership opportunities — we're here to help.</p>
+        <form class="form-grid" style="margin:0;">
+          <div class="field-row field-row--2">
+            <div>
+              <label for="c-name">Full name</label>
+              <input id="c-name" name="name" type="text" required />
+            </div>
+            <div>
+              <label for="c-email">Email</label>
+              <input id="c-email" name="email" type="email" required />
+            </div>
+          </div>
+          <div>
+            <label for="c-subject">Subject</label>
+            <select id="c-subject" name="subject">
+              <option>General inquiry</option>
+              <option>Volunteer opportunities</option>
+              <option>Host an event</option>
+              <option>Corporate partnership</option>
+              <option>Media &amp; press</option>
+            </select>
+          </div>
+          <div>
+            <label for="c-message">Message</label>
+            <textarea id="c-message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+        </form>
+      </div>
 
-h1, h2, h3, h4 { font-family: var(--ff-head); color: var(--purple-900); line-height: 1.2; }
-h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); }
-h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); }
-h3 { font-size: 1.4rem; }
-p { color: var(--gray-700); }
+      <div class="reveal">
+        <span class="eyebrow">Details</span>
+        <h2>Reach us directly</h2>
+        <div class="card" style="margin-top:1.25rem;">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>Location</h3>
+          <p>Norfolk, Virginia</p>
+        </div>
+        <div class="card" style="margin-top:1.25rem;">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+          <h3>Email</h3>
+          <p><a href="mailto:Darrell@cues4cancer.com" style="color:var(--purple-700);text-decoration:underline;">Darrell@cues4cancer.com</a></p>
+        </div>
+        <div class="card" style="margin-top:1.25rem;">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+          <h3>Follow Along</h3>
+          <div class="social-row" style="margin-top:.5rem;">
+            <a href="https://www.facebook.com/share/g/1FNCP6JNWV/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" style="background:var(--purple-100);color:var(--purple-700);"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6v1.9H16l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/></svg></a>
+            <a href="https://www.instagram.com/cues.for.cancer?igsh=cW1pazM3dW5zMWZ4&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" style="background:var(--purple-100);color:var(--purple-700);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+            <a href="https://www.linkedin.com/company/cuesforcancer/" target="_blank" rel="noopener" aria-label="LinkedIn" style="background:var(--purple-100);color:var(--purple-700);"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 3 5a2 2 0 0 1 3.94 0zM3.5 8.75h3.4V21H3.5V8.75zM9.5 8.75h3.26v1.68h.05c.45-.86 1.56-1.77 3.22-1.77 3.44 0 4.07 2.27 4.07 5.22V21h-3.4v-6.42c0-1.53-.03-3.5-2.13-3.5-2.14 0-2.47 1.67-2.47 3.39V21H9.5V8.75z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-.container { max-width: var(--container); margin-inline: auto; padding-inline: 1.5rem; }
-.section { padding: 5.5rem 0; }
-.section--tight { padding: 3.5rem 0; }
-.section--cream { background: var(--cream); }
-.section--purple {
-  background: linear-gradient(135deg, var(--purple-900), var(--purple-700));
-  color: var(--white);
-}
-.section--purple h2, .section--purple h3, .section--purple p { color: var(--white); }
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand"><img src="logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" /><span class="brand-text">Cues for Cancer</span></span>
+        <p class="footer-desc">A Norfolk, Virginia nonprofit inspiring hope on and off the stage for those affected by cancer through community, creativity, and connection.</p>
+        <div class="social-row">
+          <a href="https://www.facebook.com/share/g/1FNCP6JNWV/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6v1.9H16l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="https://www.instagram.com/cues.for.cancer?igsh=cW1pazM3dW5zMWZ4&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://www.linkedin.com/company/cuesforcancer/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 3 5a2 2 0 0 1 3.94 0zM3.5 8.75h3.4V21H3.5V8.75zM9.5 8.75h3.26v1.68h.05c.45-.86 1.56-1.77 3.22-1.77 3.44 0 4.07 2.27 4.07 5.22V21h-3.4v-6.42c0-1.53-.03-3.5-2.13-3.5-2.14 0-2.47 1.67-2.47 3.39V21H9.5V8.75z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="team.html">Our Team</a></li>
 
-.eyebrow {
-  display: inline-block;
-  font-family: var(--ff-body);
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-size: .78rem;
-  color: var(--gold-dark);
-  margin-bottom: .75rem;
-}
-.section--purple .eyebrow { color: var(--gold); }
+          <li><a href="events.html">Events</a></li>
+          <li><a href="index.html#stories">Stories</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener">Donate</a></li>
+          <li><a href="get-involved.html#volunteer">Volunteer</a></li>
+          <li><a href="get-involved.html#events">Host an Event</a></li>
+          <li><a href="get-involved.html#partners">Corporate Partners</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Norfolk, Virginia</li>
+          <li><a href="mailto:Darrell@cues4cancer.com">Darrell@cues4cancer.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Cues for Cancer Inc. All rights reserved.</span>
+      <span>501(c)(3) Nonprofit Organization</span>
+    </div>
+  </div>
+</footer>
 
-.section-head { max-width: 700px; margin: 0 auto 2.75rem; text-align: center; }
-.section-head p { margin-top: .75rem; font-size: 1.08rem; }
+<div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+  <div class="popup-content">
+    <button id="popup-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="card-icon" style="margin:0 auto 1rem;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+    </div>
+    <h3 id="popup-title">Stay in the loop</h3>
+    <p style="margin:.5rem 0 1.25rem;">Join our mailing list for stories, upcoming events, and ways to help.</p>
+    <form id="popup-form">
+      <input type="email" id="popup-email" placeholder="Enter your email" required />
+      <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
+    </form>
+  </div>
+</div>
 
-/* --- Buttons --- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .85rem 1.75rem;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: .98rem;
-  transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
-  white-space: nowrap;
-}
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0); }
-.btn-primary { background: var(--gold); color: var(--purple-900); box-shadow: var(--shadow-sm); }
-.btn-primary:hover { background: var(--gold-dark); box-shadow: var(--shadow-md); }
-.btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.65); }
-.btn-outline:hover { background: rgba(255,255,255,.12); border-color: var(--white); }
-.btn-ghost { background: var(--purple-100); color: var(--purple-700); }
-.btn-ghost:hover { background: var(--purple-700); color: var(--white); }
-.btn-block { width: 100%; justify-content: center; }
-
-/* ==========================================================================
-   Navigation
-   ========================================================================== */
-.site-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 1000;
-  height: var(--nav-h);
-  display: flex;
-  align-items: center;
-  background: rgba(42, 26, 74, .55);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom: 1px solid rgba(255,255,255,.08);
-  transition: background .3s var(--ease), box-shadow .3s var(--ease);
-}
-.site-header.is-scrolled {
-  background: rgba(255,255,255,.92);
-  box-shadow: var(--shadow-sm);
-  border-bottom-color: transparent;
-}
-.site-header.is-scrolled .brand-text,
-.site-header.is-scrolled .nav-link { color: var(--purple-900); }
-
-.nav-inner {
-  width: 100%;
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; }
-.brand-mark {
-  height: 46px; width: auto;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-.brand-text { color: var(--white); font-family: var(--ff-head); font-size: 1.2rem; transition: color .3s var(--ease); }
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-.nav-link {
-  color: var(--white);
-  font-weight: 600;
-  font-size: .95rem;
-  padding: .5rem 0;
-  position: relative;
-  transition: color .3s var(--ease);
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-}
-.nav-link::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: -2px;
-  width: 0; height: 2px;
-  background: var(--gold);
-  transition: width .25s var(--ease);
-}
-.nav-link:hover::after, .nav-link.is-active::after { width: 100%; }
-.nav-link .chevron { width: 10px; height: 10px; transition: transform .25s var(--ease); }
-
-.has-dropdown { position: relative; }
-.dropdown {
-  position: absolute;
-  top: calc(100% + 14px);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  min-width: 240px;
-  background: var(--white);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-lg);
-  padding: .6rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .22s var(--ease), transform .22s var(--ease), visibility .22s;
-  z-index: 50;
-}
-.has-dropdown:hover .dropdown,
-.has-dropdown:focus-within .dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-.has-dropdown:hover .chevron,
-.has-dropdown:focus-within .chevron { transform: rotate(180deg); }
-.dropdown::before {
-  content: '';
-  position: absolute;
-  top: -6px; left: 50%;
-  width: 12px; height: 12px;
-  background: var(--white);
-  transform: translateX(-50%) rotate(45deg);
-  border-radius: 2px;
-}
-.dropdown a {
-  display: flex;
-  flex-direction: column;
-  gap: .1rem;
-  padding: .65rem .85rem;
-  border-radius: 8px;
-  color: var(--ink);
-  transition: background .2s var(--ease);
-}
-.dropdown a:hover { background: var(--purple-100); }
-.dropdown a strong { font-size: .92rem; color: var(--purple-700); }
-.dropdown a span { font-size: .8rem; color: var(--gray-700); }
-
-.nav-cta { flex-shrink: 0; }
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  width: 30px;
-  height: 22px;
-  justify-content: center;
-  z-index: 1100;
-}
-.nav-toggle span {
-  height: 2px; width: 100%;
-  background: var(--white);
-  border-radius: 2px;
-  transition: transform .3s var(--ease), opacity .3s var(--ease), background .3s var(--ease);
-}
-.site-header.is-scrolled .nav-toggle span { background: var(--purple-900); }
-.nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
-.nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-@media (max-width: 900px) {
-  .nav-toggle { display: flex; }
-  .nav-links {
-    position: fixed;
-    inset: 0 0 0 auto;
-    width: min(340px, 82vw);
-    height: 100vh;
-    background: var(--purple-900);
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 6.5rem 1.75rem 2rem;
-    gap: 0;
-    transform: translateX(100%);
-    transition: transform .35s var(--ease);
-    overflow-y: auto;
-  }
-  .nav-links.is-open { transform: translateX(0); }
-  .nav-links .nav-link { width: 100%; padding: .9rem 0; border-bottom: 1px solid rgba(255,255,255,.1); color: var(--white) !important; }
-  .site-header.is-scrolled .nav-links .nav-link { color: var(--white) !important; }
-  .has-dropdown { width: 100%; }
-  .dropdown {
-    position: static;
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-    max-height: 0;
-    overflow: hidden;
-    box-shadow: none;
-    background: transparent;
-    padding: 0;
-    width: 100%;
-    transition: max-height .3s var(--ease), padding .3s var(--ease);
-  }
-  .dropdown::before { display: none; }
-  .has-dropdown.is-open .dropdown { max-height: 400px; padding: .5rem 0 .75rem 1rem; }
-  .dropdown a strong, .dropdown a span { color: var(--white); }
-  .dropdown a:hover { background: rgba(255,255,255,.08); }
-  .nav-cta { width: 100%; margin-top: 1.25rem; }
-  .nav-cta .btn { width: 100%; justify-content: center; }
-}
-
-/* ==========================================================================
-   Hero / video banner
-   ========================================================================== */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background: var(--purple-900);
-}
-.hero-media {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(20,12,38,.55) 0%, rgba(20,12,38,.65) 55%, rgba(20,12,38,.92) 100%),
-    linear-gradient(120deg, rgba(75,46,131,.55), rgba(0,0,0,.25));
-  z-index: 1;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  padding-top: var(--nav-h);
-  text-align: center;
-  color: var(--white);
-}
-.hero-content .eyebrow { color: var(--gold); }
-.hero-content h1 { color: var(--white); max-width: 900px; margin: 0 auto; }
-.hero-content h1 em { font-style: italic; color: var(--gold); }
-.hero-content .lede {
-  max-width: 640px;
-  margin: 1.25rem auto 2.25rem;
-  font-size: 1.15rem;
-  color: rgba(255,255,255,.88);
-}
-.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.hero-scroll {
-  position: absolute;
-  bottom: 2rem; left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  color: rgba(255,255,255,.75);
-  display: flex; flex-direction: column; align-items: center; gap: .5rem;
-  font-size: .78rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  animation: bob 2.4s ease-in-out infinite;
-}
-.hero-scroll .line { width: 1px; height: 26px; background: rgba(255,255,255,.5); }
-@keyframes bob { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
-
-.hero--sub {
-  min-height: 46vh;
-  align-items: flex-end;
-  padding-bottom: 3rem;
-}
-.hero--sub .hero-content { text-align: left; padding-top: calc(var(--nav-h) + 2rem); }
-.hero--sub h1 { margin: 0; max-width: 700px; }
-.breadcrumb { display: flex; gap: .5rem; align-items: center; color: rgba(255,255,255,.75); font-size: .85rem; margin-bottom: .75rem; }
-.breadcrumb span { color: var(--gold); }
-
-/* ==========================================================================
-   Stats strip
-   ========================================================================== */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  text-align: center;
-}
-.stat-num {
-  font-family: var(--ff-head);
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  color: var(--gold);
-}
-.stat-label { font-size: .9rem; letter-spacing: .04em; text-transform: uppercase; color: rgba(255,255,255,.8); }
-@media (min-width: 700px) { .stats { grid-template-columns: repeat(4, 1fr); } }
-
-/* ==========================================================================
-   Cards: programs / stories
-   ========================================================================== */
-.grid {
-  display: grid;
-  gap: 1.75rem;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 640px) { .grid--2 { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) {
-  .grid--3 { grid-template-columns: repeat(3, 1fr); }
-  .grid--4 { grid-template-columns: repeat(4, 1fr); }
-}
-
-.card {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 2rem 1.75rem;
-  box-shadow: var(--shadow-sm);
-  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-  border: 1px solid rgba(75,46,131,.06);
-}
-.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
-.card-icon {
-  width: 54px; height: 54px;
-  border-radius: 14px;
-  background: var(--purple-100);
-  color: var(--purple-700);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1.1rem;
-}
-.card-icon svg { width: 26px; height: 26px; }
-.card h3 { margin-bottom: .5rem; }
-
-.story-card {
-  background: var(--cream);
-  border-radius: var(--radius);
-  padding: 2rem;
-  border-left: 4px solid var(--gold);
-  position: relative;
-}
-.story-quote { font-size: 2.4rem; font-family: var(--ff-head); color: var(--purple-500); line-height: 0; position: relative; top: 12px; }
-.story-card p { color: var(--ink); font-style: italic; margin-bottom: 1rem; }
-.story-author { font-weight: 700; color: var(--purple-700); font-style: normal; font-size: .92rem; }
-
-/* ==========================================================================
-   Team
-   ========================================================================== */
-.team-grid {
-  display: grid;
-  gap: 1.75rem;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 640px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1000px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
-
-.team-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  transition: box-shadow .3s var(--ease);
-}
-.team-card:hover { box-shadow: var(--shadow-md); }
-
-.team-summary {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  width: 100%;
-  padding: 1.35rem 1.5rem;
-  text-align: left;
-}
-.team-photo {
-  width: 68px; height: 68px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
-  color: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--ff-head);
-  font-size: 1.3rem;
-  border: 3px solid var(--purple-100);
-}
-.team-id { flex: 1; min-width: 0; }
-.team-id .name { font-family: var(--ff-head); font-size: 1.12rem; color: var(--purple-900); }
-.team-id .title { font-size: .85rem; color: var(--gold-dark); font-weight: 600; }
-.team-toggle-icon {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  background: var(--purple-100);
-  color: var(--purple-700);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: transform .3s var(--ease), background .3s var(--ease);
-}
-.team-toggle-icon svg { width: 16px; height: 16px; }
-
-.team-bio {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .4s var(--ease), padding .4s var(--ease);
-  padding: 0 1.5rem;
-}
-.team-bio-inner { padding-bottom: 1.5rem; border-top: 1px solid var(--gray-300); padding-top: 1.1rem; }
-.team-bio-inner p { font-size: .93rem; }
-.team-bio-inner p + p { margin-top: .6rem; }
-
-.team-card.is-open .team-toggle-icon { transform: rotate(45deg); background: var(--gold); color: var(--purple-900); }
-.team-card.is-open .team-bio { max-height: 600px; }
-
-/* ==========================================================================
-   Get Involved
-   ========================================================================== */
-.involve-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 2.25rem;
-  box-shadow: var(--shadow-sm);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-}
-.involve-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
-.involve-card .card-icon { margin-bottom: 0; }
-
-/* ==========================================================================
-   Forms
-   ========================================================================== */
-.form-grid { display: grid; gap: 1.1rem; max-width: 640px; margin-inline: auto; }
-label { font-weight: 600; font-size: .88rem; color: var(--purple-900); display: block; margin-bottom: .35rem; }
-input, textarea, select {
-  width: 100%;
-  padding: .85rem 1rem;
-  border: 1px solid var(--gray-300);
-  border-radius: var(--radius-sm);
-  font-family: var(--ff-body);
-  font-size: .96rem;
-  background: var(--white);
-  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
-}
-input:focus, textarea:focus, select:focus {
-  outline: none;
-  border-color: var(--purple-500);
-  box-shadow: 0 0 0 4px var(--purple-100);
-}
-textarea { resize: vertical; min-height: 140px; }
-.field-row { display: grid; gap: 1.1rem; }
-@media (min-width: 640px) { .field-row--2 { grid-template-columns: repeat(2, 1fr); } }
-
-/* ==========================================================================
-   Newsletter popup
-   ========================================================================== */
-.popup {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: rgba(20, 12, 38, .68);
-  backdrop-filter: blur(3px);
-  z-index: 2000;
-  padding: 1.5rem;
-}
-.popup.is-visible { display: flex; }
-.popup-content {
-  background: var(--white);
-  padding: 2.5rem 2.25rem;
-  border-radius: var(--radius);
-  max-width: 420px;
-  width: 100%;
-  text-align: center;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  animation: pop-in .3s var(--ease);
-}
-@keyframes pop-in { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
-.popup-content .card-icon { margin: 0 auto 1rem; }
-.popup-content input { margin-bottom: 1rem; }
-#popup-close {
-  position: absolute;
-  top: .9rem; right: .9rem;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--gray-700);
-  transition: background .2s var(--ease);
-}
-#popup-close:hover { background: var(--purple-100); }
-
-/* ==========================================================================
-   Events / Calendar
-   ========================================================================== */
-.events-layout {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr;
-  align-items: start;
-}
-@media (min-width: 960px) { .events-layout { grid-template-columns: 1.4fr 1fr; } }
-
-.calendar-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 1.75rem;
-}
-.events-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
-}
-.events-toolbar h3 { margin: 0; }
-.cal-nav-btn {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: var(--purple-100);
-  color: var(--purple-700);
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s var(--ease), color .2s var(--ease);
-}
-.cal-nav-btn:hover { background: var(--purple-700); color: var(--white); }
-.cal-nav-btn svg { width: 18px; height: 18px; }
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-}
-.calendar-weekday {
-  text-align: center;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--gray-700);
-  padding-bottom: .5rem;
-}
-.calendar-day {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  min-height: 44px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  background: transparent;
-  color: var(--ink);
-  font-size: .88rem;
-  cursor: default;
-  transition: background .2s var(--ease), transform .2s var(--ease);
-}
-.calendar-day.is-other-month { color: var(--gray-300); }
-.calendar-day.is-today { box-shadow: inset 0 0 0 2px var(--gold); font-weight: 700; }
-.calendar-day.has-event {
-  background: var(--purple-100);
-  color: var(--purple-900);
-  font-weight: 700;
-  cursor: pointer;
-}
-.calendar-day.has-event:hover { background: var(--purple-700); color: var(--white); transform: translateY(-2px); }
-.calendar-dots { display: flex; gap: 3px; height: 6px; }
-.calendar-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-dark); }
-.calendar-day.has-event:hover .calendar-dot { background: var(--gold); }
-
-.agenda-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 1.75rem;
-}
-.agenda-list { display: flex; flex-direction: column; gap: .75rem; }
-.agenda-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  text-align: left;
-  padding: .9rem;
-  border-radius: var(--radius-sm);
-  background: var(--cream);
-  transition: background .2s var(--ease), transform .2s var(--ease);
-}
-.agenda-item:hover { background: var(--purple-100); transform: translateY(-2px); }
-.agenda-date {
-  flex-shrink: 0;
-  width: 56px;
-  text-align: center;
-  background: var(--purple-700);
-  color: var(--white);
-  border-radius: 10px;
-  padding: .4rem 0;
-  line-height: 1.1;
-}
-.agenda-month { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .05em; color: var(--gold); }
-.agenda-day { display: block; font-family: var(--ff-head); font-size: 1.3rem; }
-.agenda-info { flex: 1; min-width: 0; }
-.agenda-title { display: block; font-weight: 700; color: var(--purple-900); font-size: .96rem; }
-.agenda-sub { display: block; font-size: .82rem; color: var(--gray-700); margin-top: .15rem; }
-
-.event-tag {
-  flex-shrink: 0;
-  font-size: .72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  padding: .3rem .65rem;
-  border-radius: 999px;
-  background: var(--purple-100);
-  color: var(--purple-700);
-}
-.event-tag--gold { background: var(--gold); color: var(--purple-900); }
-
-.event-card-head { display: flex; flex-direction: column; align-items: flex-start; gap: .6rem; margin-bottom: 1rem; }
-.event-card-head h3 { margin: 0; }
-.event-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem 1.25rem;
-  font-size: .88rem;
-  color: var(--gray-700);
-  margin-bottom: 1.1rem;
-  padding-bottom: 1.1rem;
-  border-bottom: 1px solid var(--gray-300);
-}
-.event-desc p + p { margin-top: .6rem; }
-.event-desc { margin-bottom: 1.5rem; }
-.event-divider { border: none; border-top: 1px solid var(--gray-300); margin: 1.75rem 0; }
-
-.event-modal-content {
-  background: var(--white);
-  padding: 2.25rem;
-  border-radius: var(--radius);
-  max-width: 560px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
-  text-align: left;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  animation: pop-in .3s var(--ease);
-}
-
-/* ==========================================================================
-   CTA banner
-   ========================================================================== */
-.cta-banner {
-  border-radius: var(--radius);
-  background: linear-gradient(120deg, var(--purple-700), var(--purple-900));
-  color: var(--white);
-  padding: 3rem 2.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-.cta-banner h2 { color: var(--white); margin: 0; font-size: 1.8rem; }
-.cta-banner p { color: rgba(255,255,255,.85); margin-top: .35rem; }
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-.site-footer {
-  background: var(--purple-100);
-  color: var(--gray-700);
-  padding: 4rem 0 1.5rem;
-}
-.footer-grid {
-  display: grid;
-  gap: 2.5rem;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 800px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; } }
-.footer-brand .brand-text { color: var(--purple-900); }
-.footer-grid h4 { color: var(--purple-900); font-family: var(--ff-body); font-size: .92rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1rem; }
-.footer-grid ul li { margin-bottom: .6rem; }
-.footer-grid a { color: var(--gray-700); transition: color .2s var(--ease); font-size: .92rem; }
-.footer-grid a:hover { color: var(--gold-dark); }
-.footer-desc { margin-top: 1rem; font-size: .92rem; max-width: 320px; color: var(--gray-700); }
-.social-row { display: flex; gap: .75rem; margin-top: 1.25rem; }
-.social-row a {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  background: var(--white);
-  color: var(--purple-700);
-  box-shadow: var(--shadow-sm);
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s var(--ease), color .2s var(--ease);
-}
-.social-row a:hover { background: var(--gold); color: var(--purple-900); }
-.social-row svg { width: 17px; height: 17px; }
-.footer-bottom {
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(75,46,131,.15);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
-  font-size: .82rem;
-  color: rgba(75,46,131,.6);
-}
-
-/* ==========================================================================
-   Reveal-on-scroll utility
-   ========================================================================== */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.reveal.is-visible { opacity: 1; transform: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .hero-scroll { animation: none; }
-  html { scroll-behavior: auto; }
-}
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,142 +1,291 @@
-/* Cues for Cancer Inc. — team roster data + click-to-expand bio cards
-   To add a real headshot: set `photo` to an image path (e.g. "assets/team/darrell-wood.jpg").
-   Leave `photo` empty to keep the initials avatar. */
-const TEAM = [
-  {
-    name: 'Darrell Wood',
-    title: 'Executive Director & Founder',
-    photo: 'assets/team/darrell-wood.webp',
-    bio: [
-      'A cancer survivor himself, Darrell founded Cues for Cancer after facing a life-altering diagnosis of testicular cancer at just eighteen years old.',
-      'He leads the organization’s strategic vision, partnerships, and program development, drawing on his own experience to shape events and services that meet people where they are.',
-    ],
-  },
-  {
-    name: 'Dr. Elissa Peterson',
-    title: 'Director of Governance',
-    photo: 'assets/team/elissa-peterson.webp',
-    bio: [
-      'Dr. Peterson holds credentials as a CMLC, CMP, CNHP, and ND, and brings deep expertise in coaching, holistic wellness, and leadership development.',
-      'As Director of Governance, she emphasizes stewardship and community empowerment, guiding the organization’s governance and long-term direction.',
-    ],
-  },
-  {
-    name: 'Rishi Sood',
-    title: 'Director of Marketing & External Affairs',
-    photo: 'assets/team/rishi-sood.webp',
-    bio: [
-      'Rishi previously served as Head of Business Development at Music World Entertainment under Dr. Mathew Knowles.',
-      'He specializes in aligning artists, athletes, speakers, and brands with mission-driven messaging, helping extend the reach of Cues for Cancer’s story.',
-    ],
-  },
-  {
-    name: 'Phillip Killebrew, Jr.',
-    title: 'Director of Finance',
-    photo: 'assets/team/phillip-killebrew.webp',
-    bio: [
-      'Phillip is a Program Manager and Lead Engineer Planning Analyst for Newport News Shipbuilding.',
-      'Named a Top Forty Under 40 professional in Hampton Roads, he brings over 15 years of community service experience to the board.',
-    ],
-  },
-  {
-    name: 'Tod Addison',
-    title: 'Director',
-    photo: 'assets/team/tod-addison.webp',
-    bio: [
-      'Tod is a retired U.S. Army Lieutenant Colonel with more than 30 years of leadership experience.',
-      'He previously commanded the U.S. Military Academy Band and served as Equal Opportunity Program Manager at West Point.',
-    ],
-  },
-  {
-    name: 'Dr. Ann Berger',
-    title: 'Director of Health Programs',
-    photo: 'assets/team/ann-berger.webp',
-    bio: [
-      'Dr. Berger brings over 35 years of experience in pain and palliative care, including service as former chief of pain and palliative care at the National Institutes of Health.',
-      'Her ground-breaking research measures psychosocial and spiritual healing, informing how the organization supports whole-person wellbeing.',
-    ],
-  },
-  {
-    name: 'Frederick Thompson',
-    title: 'Director',
-    photo: 'assets/team/frederick-thompson.webp',
-    bio: [
-      'Frederick is a Senior Sales Executive with 20+ years in B2B sales across SaaS, media, and service sectors.',
-      'He holds a Bachelor of Arts in Business Administration from Springfield College.',
-    ],
-  },
-  {
-    name: 'Ashley Williams',
-    title: 'Programs Advisor',
-    photo: 'assets/team/ashley-williams.webp',
-    bio: [
-      'Ashley holds a Master of Arts in English from Valdosta State University and a Bachelor of Arts in English and Theatre from Virginia Wesleyan University.',
-      'She guides program development and curriculum design across Cues for Cancer’s workshops and community events.',
-    ],
-  },
-  {
-    name: 'Christina Craig',
-    title: 'Advisor on Childhood Development & Family Wellness',
-    photo: 'assets/team/christina-craig.webp',
-    bio: [
-      'Christina is a Behavior Technician supporting children and families with developmental growth, emotional regulation, and positive behavioral outcomes.',
-      'Her guidance shapes programming for younger family members impacted by a cancer diagnosis in the household.',
-    ],
-  },
-  {
-    name: 'Dr. Daryl T. Jenkins',
-    title: 'Board Member',
-    photo: 'assets/team/daryl-jenkins.jpeg',
-    bio: [
-      'Dr. Jenkins contributes strategic and clinical insight to the board, supporting the organization’s mission to serve those affected by cancer with compassion and rigor.',
-    ],
-  },
-];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Cues for Cancer Inc. is a Norfolk, Virginia nonprofit inspiring hope on and off the stage for those affected by cancer through community, creativity, and connection." />
+<title>Cues for Cancer Inc. — Inspire Hope. Transform Lives.</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
 
-function initials(name) {
-  return name
-    .split(' ')
-    .filter((w) => /^[A-Z]/.test(w))
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join('');
-}
+<!-- ===== Header / Nav ===== -->
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" />
+      <span class="brand-text">Cues for Cancer</span>
+    </a>
 
-function renderTeam() {
-  const root = document.getElementById('team-grid');
-  if (!root) return;
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html" class="nav-link is-active">Home</a>
 
-  root.innerHTML = TEAM.map((member, i) => `
-    <article class="team-card reveal" style="transition-delay:${(i % 3) * 80}ms">
-      <button class="team-summary" aria-expanded="false" aria-controls="bio-${i}" data-team-toggle="${i}">
-        ${member.photo
-          ? `<img class="team-photo" src="${member.photo}" alt="${member.name}" />`
-          : `<span class="team-photo" aria-hidden="true">${initials(member.name)}</span>`}
-        <span class="team-id">
-          <span class="name">${member.name}</span>
-          <span class="title">${member.title}</span>
-        </span>
-        <span class="team-toggle-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </span>
-      </button>
-      <div class="team-bio" id="bio-${i}">
-        <div class="team-bio-inner">
-          ${member.bio.map((p) => `<p>${p}</p>`).join('')}
+      <div class="has-dropdown">
+        <a href="about.html" class="nav-link">About
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="about.html#story"><strong>Our Story</strong><span>How Cues for Cancer began</span></a>
+          <a href="about.html#programs"><strong>Mission &amp; Programs</strong><span>What we do and why</span></a>
+          <a href="about.html#faq"><strong>FAQ</strong><span>Common questions answered</span></a>
         </div>
       </div>
-    </article>
-  `).join('');
 
-  root.querySelectorAll('[data-team-toggle]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.team-card');
-      const isOpen = card.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', String(isOpen));
-    });
-  });
+      <a href="team.html" class="nav-link">Our Team</a>
+      <a href="events.html" class="nav-link">Events</a>
 
-  initScrollReveal();
-}
+      <div class="has-dropdown">
+        <a href="get-involved.html" class="nav-link">Get Involved
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener"><strong>Donate</strong><span>Fuel a program or event</span></a>
+          <a href="get-involved.html#volunteer"><strong>Volunteer</strong><span>Share your time and talent</span></a>
+          <a href="get-involved.html#events"><strong>Host an Event</strong><span>Bring Cues for Cancer to your stage</span></a>
+          <a href="get-involved.html#partners"><strong>Corporate Partners</strong><span>Sponsor our mission</span></a>
+        </div>
+      </div>
 
-document.addEventListener('DOMContentLoaded', renderTeam);
+      <a href="index.html#stories" class="nav-link">Stories</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+
+      <div class="nav-cta">
+        <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener" class="btn btn-primary">Donate Now</a>
+      </div>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== Hero video banner ===== -->
+<section class="hero">
+  <video class="hero-media" autoplay muted loop playsinline poster="hero-poster.jpg">
+    <source src="hero.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content container">
+    <span class="eyebrow">Norfolk, Virginia · Est. Nonprofit</span>
+    <h1>Inspire Hope. <em>Transform Lives.</em></h1>
+    <p class="lede">Cues for Cancer creates spaces — on stage and off — that uplift, inspire, and help change lives for individuals and families impacted by cancer, from anywhere in the country.</p>
+    <div class="hero-actions">
+      <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener" class="btn btn-primary">Support Our Mission</a>
+      <a href="about.html#programs" class="btn btn-outline">See How We Help</a>
+    </div>
+  </div>
+  <a href="#mission" class="hero-scroll" aria-label="Scroll to learn more">
+    <span class="line"></span>
+    Scroll
+  </a>
+</section>
+
+<!-- ===== Impact stats ===== -->
+<section class="section section--purple section--tight">
+  <div class="container">
+    <div class="stats">
+      <div class="reveal">
+        <div class="stat-num"><span data-count="500" data-suffix="+">0</span></div>
+        <div class="stat-label">Families Supported</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num"><span data-count="120" data-suffix="+">0</span></div>
+        <div class="stat-label">Events &amp; Performances</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num"><span data-count="40" data-suffix="+">0</span></div>
+        <div class="stat-label">Community Partners</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num"><span data-count="10" data-suffix="+">0</span></div>
+        <div class="stat-label">Years of Impact</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Mission ===== -->
+<section class="section" id="mission">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Empowering Lives Through Every Cue</span>
+      <h2>Community, creativity, and connection</h2>
+      <p>Cues for Cancer is a Norfolk, Virginia–based nonprofit creating meaningful impact through the power of community, creativity, and connection — supporting those affected by cancer through engaging events, performances, and collaborative experiences.</p>
+    </div>
+
+    <div class="grid grid--4">
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Community Support Events</h3>
+        <p>Gatherings that bring survivors, families, and neighbors together to feel seen, supported, and less alone.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 0 0-9 9c0 3.5 2 6 4 7v2h10v-2c2-1 4-3.5 4-7a9 9 0 0 0-9-9z"/><path d="M9 21h6"/></svg>
+        </div>
+        <h3>Creative Spark Workshops</h3>
+        <p>Theatre, music, and art-based workshops that give participants a creative outlet through diagnosis and recovery.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-4.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-8 11-8 11z"/></svg>
+        </div>
+        <h3>Fundraising Initiatives</h3>
+        <p>Performances and campaigns that fund direct support for families navigating the cost of a cancer journey.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        </div>
+        <h3>Volunteer Opportunities</h3>
+        <p>Ways for performers, professionals, and neighbors to lend their time and talent to our mission.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== As Seen On ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">As Seen On WAVY-10</span>
+      <h2>Darrell shares our story</h2>
+      <p>Watch Darrell Wood's interview on the Hampton Roads Show about the mission behind Cues for Cancer.</p>
+    </div>
+    <div class="video-embed reveal">
+      <iframe id="nxs-video-iframe-1" frameborder="0" allowfullscreen loading="lazy" style="width: 100%; height: auto; aspect-ratio: 16/9;" src="https://redir1.wavy.com/nxs-video/vid-anvato-11959937,11961264,11961211,11961048,11960865,11960748,11960538,11960501,11960464,11960455,11959591,11959577,11959461/embed/?autoplay=1&injected_via=embed&post_id=3183493" rel="nofollow" width="640" height="320"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Stories ===== -->
+<section class="section section--cream" id="stories">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Stories of Hope</span>
+      <h2>Real families. Real impact.</h2>
+      <p>Every event and workshop exists because of the people we serve. Here are a few of their stories.</p>
+    </div>
+    <div class="grid grid--3">
+      <div class="story-card reveal">
+        <div class="story-quote">&ldquo;</div>
+        <p>Being part of a Cues for Cancer workshop gave my daughter a place to just be a kid again, even in the middle of my treatment.</p>
+        <div class="story-author">— A Cues for Cancer parent</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-quote">&ldquo;</div>
+        <p>The community that welcomed me after my diagnosis reminded me I wasn't just a patient — I was still a performer, still me.</p>
+        <div class="story-author">— A program participant</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-quote">&ldquo;</div>
+        <p>Volunteering with this organization changed how I see recovery — it's not just clinical, it's creative and communal.</p>
+        <div class="story-author">— A Cues for Cancer volunteer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Team preview ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Meet the People Behind the Mission</span>
+      <h2>Our Team</h2>
+      <p>A community of survivors, artists, clinicians, and leaders working together to support families affected by cancer.</p>
+    </div>
+    <div class="hero-actions" style="margin-bottom:1rem;">
+      <a href="team.html" class="btn btn-ghost">Meet the Full Team</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA banner ===== -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <div>
+        <h2>Ready to make a difference?</h2>
+        <p>Join us as we create spaces that uplift, inspire, and help change lives.</p>
+      </div>
+      <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand"><img src="logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" /><span class="brand-text">Cues for Cancer</span></span>
+        <p class="footer-desc">A Norfolk, Virginia nonprofit inspiring hope on and off the stage for those affected by cancer through community, creativity, and connection.</p>
+        <div class="social-row">
+          <a href="https://www.facebook.com/share/g/1FNCP6JNWV/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6v1.9H16l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="https://www.instagram.com/cues.for.cancer?igsh=cW1pazM3dW5zMWZ4&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://www.linkedin.com/company/cuesforcancer/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 3 5a2 2 0 0 1 3.94 0zM3.5 8.75h3.4V21H3.5V8.75zM9.5 8.75h3.26v1.68h.05c.45-.86 1.56-1.77 3.22-1.77 3.44 0 4.07 2.27 4.07 5.22V21h-3.4v-6.42c0-1.53-.03-3.5-2.13-3.5-2.14 0-2.47 1.67-2.47 3.39V21H9.5V8.75z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="team.html">Our Team</a></li>
+
+          <li><a href="events.html">Events</a></li>
+          <li><a href="index.html#stories">Stories</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener">Donate</a></li>
+          <li><a href="get-involved.html#volunteer">Volunteer</a></li>
+          <li><a href="get-involved.html#events">Host an Event</a></li>
+          <li><a href="get-involved.html#partners">Corporate Partners</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Norfolk, Virginia</li>
+          <li><a href="mailto:Darrell@cues4cancer.com">Darrell@cues4cancer.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Cues for Cancer Inc. All rights reserved.</span>
+      <span>501(c)(3) Nonprofit Organization</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Newsletter popup ===== -->
+<div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+  <div class="popup-content">
+    <button id="popup-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="card-icon" style="margin:0 auto 1rem;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+    </div>
+    <h3 id="popup-title">Stay in the loop</h3>
+    <p style="margin:.5rem 0 1.25rem;">Join our mailing list for stories, upcoming events, and ways to help.</p>
+    <form id="popup-form">
+      <input type="email" id="popup-email" placeholder="Enter your email" required />
+      <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
+    </form>
+  </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

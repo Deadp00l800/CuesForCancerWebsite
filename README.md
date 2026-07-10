@@ -1,165 +1,64 @@
-/* Cues for Cancer Inc. — shared site behavior: nav, popup, reveal, counters */
-document.addEventListener('DOMContentLoaded', () => {
-  initHeaderScroll();
-  initMobileNav();
-  initNewsletterPopup();
-  initScrollReveal();
-  initStatCounters();
-  markActiveNavLink();
-});
+# Cues for Cancer Inc. — Modern Site Redesign
 
-/* Header background swap + shrink on scroll */
-function initHeaderScroll() {
-  const header = document.querySelector('.site-header');
-  if (!header) return;
-  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-}
+A modern, static redesign of the Cues for Cancer Inc. website. Built with plain HTML/CSS/JS — no build step, no framework — so it can be deployed anywhere (Cloudflare Pages, Netlify, GitHub Pages, etc.) by uploading the files as-is.
 
-/* Mobile hamburger + accordion-style dropdowns on touch */
-function initMobileNav() {
-  const toggle = document.querySelector('.nav-toggle');
-  const links = document.querySelector('.nav-links');
-  if (!toggle || !links) return;
+## What's included
 
-  toggle.addEventListener('click', () => {
-    const isOpen = links.classList.toggle('is-open');
-    toggle.classList.toggle('is-open', isOpen);
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
+- `index.html` — Home page with video banner hero, impact stats, mission/programs, stories, team preview, CTA, newsletter popup.
+- `about.html` — Our story, mission & programs, FAQ.
+- `team.html` — Full team roster: photo, name, and title per card, with a click-to-expand bio (accordion).
+- `get-involved.html` — Donate, volunteer sign-up form, host-an-event info, corporate partners.
+- `events.html` — Calendar + upcoming-events list; click a highlighted date or an agenda item to open an RSVP/tickets modal.
+- `contact.html` — Contact form + direct contact details.
+- `style.css` — All styling: nav, hero, cards, team accordion, calendar/events, forms, popup, footer, animations.
+- `main.js` — Sticky/blurred nav on scroll, mobile hamburger menu, dropdown menus, newsletter popup logic, scroll-reveal animations, animated stat counters.
+- `team.js` — Team roster data (name/title/bio) and renders the click-to-expand team cards on `team.html`.
+- `events.js` — Event data (see below) and renders the calendar, agenda list, and RSVP/tickets modal on `events.html`.
 
-  document.querySelectorAll('.has-dropdown > .nav-link').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      if (window.innerWidth > 900) return;
-      e.preventDefault();
-      link.parentElement.classList.toggle('is-open');
-    });
-  });
+## How to add a workshop or event
 
-  links.querySelectorAll('a:not(.has-dropdown > .nav-link)').forEach((a) => {
-    a.addEventListener('click', () => {
-      links.classList.remove('is-open');
-      toggle.classList.remove('is-open');
-      document.body.style.overflow = '';
-    });
-  });
-}
+Open `events.js` and add a new object to the top of the `EVENTS` array, following the same shape as the examples already there:
 
-/* Highlight the nav link matching the current page */
-function markActiveNavLink() {
-  const path = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-link, .dropdown a').forEach((a) => {
-    const href = a.getAttribute('href');
-    if (href === path) a.classList.add('is-active');
-  });
-}
+```js
+{
+  id: 'a-unique-slug',                 // used internally, just keep it unique
+  title: 'Event name',
+  date: '2026-11-14',                  // YYYY-MM-DD
+  time: '6:00 PM – 8:00 PM',
+  location: 'Venue name, City, VA',
+  type: 'Workshop',                    // or 'Fundraiser', 'Performance', 'Community' — controls the tag color
+  description: [
+    'First paragraph shown in the event detail popup.',
+    'Optional second paragraph.',
+  ],
+  action: { label: 'RSVP', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Event%20Name' },
+  // or for a ticketed event:
+  // action: { label: 'Get Tickets', url: 'https://your-ticket-link.com' },
+},
+```
 
-/* Newsletter popup: show once per session, close button, validated submit */
-function initNewsletterPopup() {
-  const popup = document.getElementById('popup');
-  if (!popup) return;
-  const closeBtn = document.getElementById('popup-close');
-  const form = document.getElementById('popup-form');
-  const emailInput = document.getElementById('popup-email');
-  const SEEN_KEY = 'cfc_newsletter_seen';
+That's it — the date automatically shows up as a highlighted, clickable day on the calendar (the calendar always opens to the current month) and as a card in the "Upcoming" list. No other file needs to change. Past events can be deleted from the array whenever you like; nothing removes them automatically.
 
-  if (!sessionStorage.getItem(SEEN_KEY)) {
-    setTimeout(() => {
-      popup.classList.add('is-visible');
-      sessionStorage.setItem(SEEN_KEY, '1');
-    }, 4000);
-  }
+## Status — what's plugged in already
 
-  const hide = () => popup.classList.remove('is-visible');
-  closeBtn?.addEventListener('click', hide);
-  popup.addEventListener('click', (e) => { if (e.target === popup) hide(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+- **Hero video** — `hero.mp4` is in place (1920×1080, H.264) and every page's `<video>` tag already points to it. It won't preview in some sandboxed/headless test browsers that lack a licensed H.264 decoder, but it plays normally in real Chrome, Safari, Firefox, and Edge. No poster/still image has been added yet — add one at `hero-poster.jpg` (and the matching `about/team/involved/contact/events-poster.jpg` (same flat style, e.g. `about-poster.jpg`)) if you want an instant frame before the video loads.
+- **Team photos** — all 10 team members have real headshots wired into `team.js`.
+- **Donate buttons** — every "Donate Now" CTA, the nav's Donate dropdown item, and the Get Involved page's tiered giving buttons link to your Fractured Atlas fundraiser page.
+- **Social links** — Facebook, Instagram, and LinkedIn are live in the footer and Contact page.
+- **Contact email** — `Darrell@cues4cancer.com` everywhere.
+- **Sample events** — `events.js` ships with 4 example events (2 workshops, a fundraiser, a community picnic) so you can see the calendar/RSVP flow working. Replace or delete these with your real events whenever you're ready.
 
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = emailInput.value.trim();
-    if (!validateEmail(email)) {
-      emailInput.setAttribute('aria-invalid', 'true');
-      emailInput.focus();
-      return;
-    }
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalLabel = submitBtn.textContent;
-    submitBtn.textContent = 'Subscribing…';
-    submitBtn.disabled = true;
+## Design notes
 
-    try {
-      const response = await fetch('https://api.sheetbest.com/sheets/5276babe-64a4-44b8-82d4-3a3da8031e89', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Email: email }),
-      });
-      submitBtn.textContent = response.ok ? 'Thank you!' : 'Please try again';
-      if (response.ok) setTimeout(hide, 1400);
-    } catch (err) {
-      submitBtn.textContent = 'Network error';
-    } finally {
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalLabel;
-      }, 2200);
-    }
-  });
+- Palette keeps the original brand purple (`#4B2E83`) and cream, layered with a new warm gold accent (`#d9a441`) for CTAs and highlights — ties back to theatre/spotlight imagery without leaning on cancer-awareness pink or gray-clinical tones.
+- Nav: translucent/blurred over the hero, solid on scroll; "About" and "Get Involved" are two-level dropdowns (desktop: hover/focus; mobile: tap-to-expand accordion inside the slide-in menu).
+- Team page: each card shows photo, name, and title only. Clicking anywhere on the card (or the + icon) expands a bio panel beneath it — built with vanilla JS and CSS `max-height` transitions, keyboard/focus accessible (`aria-expanded`, `aria-controls`).
+- Motion is subtle by design and respects `prefers-reduced-motion`.
 
-  function validateEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.toLowerCase());
-  }
-}
+## Local preview
 
-/* Fade/slide sections into view as the user scrolls */
-function initScrollReveal() {
-  const items = document.querySelectorAll('.reveal');
-  if (!items.length) return;
-  if (!('IntersectionObserver' in window)) {
-    items.forEach((el) => el.classList.add('is-visible'));
-    return;
-  }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  items.forEach((el) => observer.observe(el));
-}
+No build tools needed — just open `index.html` in a browser, or serve the folder locally:
 
-/* Animate the impact numbers in the stats strip once visible */
-function initStatCounters() {
-  const nums = document.querySelectorAll('[data-count]');
-  if (!nums.length) return;
-  const animate = (el) => {
-    const target = parseInt(el.dataset.count, 10);
-    const suffix = el.dataset.suffix || '';
-    const duration = 1400;
-    const start = performance.now();
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target).toLocaleString() + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-  if (!('IntersectionObserver' in window)) {
-    nums.forEach(animate);
-    return;
-  }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animate(entry.target);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  nums.forEach((el) => observer.observe(el));
-}
+```
+npx serve .
+```

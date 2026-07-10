@@ -1,223 +1,242 @@
-/* Cues for Cancer Inc. — events calendar
-   To add a workshop or event: add an object to the EVENTS array below.
-   date must be in "YYYY-MM-DD" format. action.label is the button text
-   ("RSVP" for free events, "Get Tickets" for ticketed ones) and action.url
-   is where it goes — a mailto: link, a Google Form, Eventbrite, etc. */
-const EVENTS = [
-  {
-    id: 'creative-spark-aug',
-    title: 'Creative Spark Workshop: Finding Your Voice',
-    date: '2026-08-08',
-    time: '6:00 PM – 8:00 PM',
-    location: 'Norfolk Theatre Arts Center, Norfolk, VA',
-    type: 'Workshop',
-    description: [
-      'A theatre and music-based workshop for anyone touched by a cancer diagnosis — patients, survivors, and family members welcome. No performing experience necessary.',
-      'Light refreshments provided. Space is limited to 20 participants, so please RSVP in advance.',
-    ],
-    action: { label: 'RSVP', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Creative%20Spark%20Workshop%20(Aug%208)' },
-  },
-  {
-    id: 'inspiring-hope-gala',
-    title: 'Inspiring Hope Gala & Performance',
-    date: '2026-09-19',
-    time: '7:00 PM – 10:00 PM',
-    location: 'The Wells Theatre, Norfolk, VA',
-    type: 'Fundraiser',
-    description: [
-      'Our flagship annual fundraiser — an evening of live performances from members of our theatre community, storytelling from survivors, and a silent auction.',
-      'All proceeds directly fund Creative Spark workshops and Community Support Events for the coming year.',
-    ],
-    action: { label: 'Get Tickets', url: 'https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off' },
-  },
-  {
-    id: 'community-picnic-sept',
-    title: 'Community Support Picnic',
-    date: '2026-09-27',
-    time: '11:00 AM – 2:00 PM',
-    location: 'Town Point Park, Norfolk, VA',
-    type: 'Community',
-    description: [
-      'A relaxed, family-friendly picnic for survivors and their loved ones to connect with the Cues for Cancer community.',
-      'Free to attend. Bring a dish to share if you\'re able — but it\'s not required.',
-    ],
-    action: { label: 'RSVP', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Community%20Support%20Picnic' },
-  },
-  {
-    id: 'workshop-oct',
-    title: 'Creative Spark Workshop: Storytelling Through Song',
-    date: '2026-10-10',
-    time: '6:00 PM – 8:00 PM',
-    location: 'Norfolk Theatre Arts Center, Norfolk, VA',
-    type: 'Workshop',
-    description: [
-      'A guided songwriting and performance workshop exploring how music can process and express the experience of a cancer diagnosis.',
-      'Open to all skill levels. Space is limited — please RSVP.',
-    ],
-    action: { label: 'RSVP', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Creative%20Spark%20Workshop%20(Oct%2010)' },
-  },
-];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Donate, volunteer, host an event, or partner with Cues for Cancer Inc. to support individuals and families affected by cancer." />
+<title>Get Involved — Cues for Cancer Inc.</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
 
-const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-let viewYear, viewMonth;
-
-function toISODate(d) {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-}
-
-function eventsOnDate(iso) {
-  return EVENTS.filter((e) => e.date === iso);
-}
-
-function formatLongDate(iso) {
-  const [y, m, d] = iso.split('-').map(Number);
-  const date = new Date(y, m - 1, d);
-  return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-}
-
-function formatShort(iso) {
-  const [y, m, d] = iso.split('-').map(Number);
-  return { month: MONTH_NAMES[m - 1].slice(0, 3).toUpperCase(), day: d };
-}
-
-function tagClass(type) {
-  return type === 'Fundraiser' || type === 'Performance' ? 'event-tag event-tag--gold' : 'event-tag';
-}
-
-function eventCardHTML(ev) {
-  return `
-    <div class="event-card">
-      <div class="event-card-head">
-        <span class="${tagClass(ev.type)}">${ev.type}</span>
-        <h3>${ev.title}</h3>
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" />
+      <span class="brand-text">Cues for Cancer</span>
+    </a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="has-dropdown">
+        <a href="about.html" class="nav-link">About
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="about.html#story"><strong>Our Story</strong><span>How Cues for Cancer began</span></a>
+          <a href="about.html#programs"><strong>Mission &amp; Programs</strong><span>What we do and why</span></a>
+          <a href="about.html#faq"><strong>FAQ</strong><span>Common questions answered</span></a>
+        </div>
       </div>
-      <div class="event-meta">
-        <span>${formatLongDate(ev.date)}</span>
-        <span>${ev.time}</span>
-        <span>${ev.location}</span>
+      <a href="team.html" class="nav-link">Our Team</a>
+      <a href="events.html" class="nav-link">Events</a>
+      <div class="has-dropdown">
+        <a href="get-involved.html" class="nav-link is-active">Get Involved
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener"><strong>Donate</strong><span>Fuel a program or event</span></a>
+          <a href="get-involved.html#volunteer"><strong>Volunteer</strong><span>Share your time and talent</span></a>
+          <a href="get-involved.html#events"><strong>Host an Event</strong><span>Bring Cues for Cancer to your stage</span></a>
+          <a href="get-involved.html#partners"><strong>Corporate Partners</strong><span>Sponsor our mission</span></a>
+        </div>
       </div>
-      <div class="event-desc">${ev.description.map((p) => `<p>${p}</p>`).join('')}</div>
-      <a href="${ev.action.url}" ${ev.action.url.startsWith('mailto:') ? '' : 'target="_blank" rel="noopener"'} class="btn btn-primary">${ev.action.label}</a>
+      <a href="index.html#stories" class="nav-link">Stories</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <div class="nav-cta"><a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener" class="btn btn-primary">Donate Now</a></div>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero hero--sub">
+  <video class="hero-media" autoplay muted loop playsinline poster="involved-poster.jpg">
+    <source src="hero.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content container">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> Get Involved</div>
+    <h1>Join Us as We Create Spaces That Uplift</h1>
+  </div>
+</section>
+
+<section class="section" id="donate">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Give</span>
+      <h2>Donate</h2>
+      <p>Your gift funds workshops, events, and direct support for families navigating a cancer diagnosis.</p>
     </div>
-  `;
-}
+    <div class="grid grid--3">
+      <div class="involve-card reveal">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-4.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-8 11-8 11z"/></svg></div>
+        <h3>$25</h3>
+        <p>Supplies for one Creative Spark workshop participant.</p>
+        <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Give $25</a>
+      </div>
+      <div class="involve-card reveal">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-4.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-8 11-8 11z"/></svg></div>
+        <h3>$100</h3>
+        <p>Helps a family attend a Community Support Event.</p>
+        <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener" class="btn btn-primary btn-block">Give $100</a>
+      </div>
+      <div class="involve-card reveal">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-4.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-8 11-8 11z"/></svg></div>
+        <h3>Custom</h3>
+        <p>Choose your own amount to support our mission.</p>
+        <a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Give Your Amount</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-function openEventModal(evs) {
-  const modal = document.getElementById('event-modal');
-  const body = document.getElementById('event-modal-body');
-  body.innerHTML = evs.map(eventCardHTML).join('<hr class="event-divider" />');
-  modal.classList.add('is-visible');
-}
+<section class="section section--cream" id="volunteer">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Give Your Time</span>
+      <h2>Volunteer</h2>
+      <p>Performers, healthcare professionals, and neighbors all have a place on our volunteer team.</p>
+    </div>
+    <form class="form-grid reveal">
+      <div class="field-row field-row--2">
+        <div>
+          <label for="v-name">Full name</label>
+          <input id="v-name" name="name" type="text" required />
+        </div>
+        <div>
+          <label for="v-email">Email</label>
+          <input id="v-email" name="email" type="email" required />
+        </div>
+      </div>
+      <div>
+        <label for="v-interest">Area of interest</label>
+        <select id="v-interest" name="interest">
+          <option>Event support</option>
+          <option>Creative workshops</option>
+          <option>Administration &amp; operations</option>
+          <option>Marketing &amp; storytelling</option>
+        </select>
+      </div>
+      <div>
+        <label for="v-message">Tell us about yourself</label>
+        <textarea id="v-message" name="message" placeholder="Share your interests, skills, or availability"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Submit Volunteer Interest</button>
+    </form>
+  </div>
+</section>
 
-function closeEventModal() {
-  document.getElementById('event-modal').classList.remove('is-visible');
-}
+<section class="section" id="events">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Bring Us to Your Stage</span>
+      <h2>Host an Event</h2>
+      <p>Partner with us to bring a performance, workshop, or fundraiser to your theatre, school, or community space.</p>
+    </div>
+    <div class="grid grid--3">
+      <div class="card reveal">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <h3>Community Nights</h3>
+        <p>Low-lift gatherings your venue can host with our support and materials.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 0 0-9 9c0 3.5 2 6 4 7v2h10v-2c2-1 4-3.5 4-7a9 9 0 0 0-9-9z"/></svg></div>
+        <h3>Full Performances</h3>
+        <p>A ticketed show featuring our performers and stories, with proceeds supporting our programs.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <h3>Workshops</h3>
+        <p>Bring a Creative Spark workshop to your school, hospital, or community center.</p>
+      </div>
+    </div>
+    <div class="hero-actions" style="margin-top:2rem;">
+      <a href="contact.html" class="btn btn-primary">Start Planning an Event</a>
+    </div>
+  </div>
+</section>
 
-function renderCalendar() {
-  const label = document.getElementById('cal-month-label');
-  const grid = document.getElementById('cal-grid');
-  if (!label || !grid) return;
+<section class="section section--purple" id="partners">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Sponsor Our Mission</span>
+      <h2>Corporate Partners</h2>
+      <p>Align your brand with a mission-driven organization while directly funding programs for families affected by cancer.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="contact.html" class="btn btn-primary">Become a Partner</a>
+      <a href="mailto:Darrell@cues4cancer.com" class="btn btn-outline">Email Our Team</a>
+    </div>
+  </div>
+</section>
 
-  label.textContent = `${MONTH_NAMES[viewMonth]} ${viewYear}`;
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand"><img src="logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" /><span class="brand-text">Cues for Cancer</span></span>
+        <p class="footer-desc">A Norfolk, Virginia nonprofit inspiring hope on and off the stage for those affected by cancer through community, creativity, and connection.</p>
+        <div class="social-row">
+          <a href="https://www.facebook.com/share/g/1FNCP6JNWV/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6v1.9H16l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="https://www.instagram.com/cues.for.cancer?igsh=cW1pazM3dW5zMWZ4&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://www.linkedin.com/company/cuesforcancer/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 3 5a2 2 0 0 1 3.94 0zM3.5 8.75h3.4V21H3.5V8.75zM9.5 8.75h3.26v1.68h.05c.45-.86 1.56-1.77 3.22-1.77 3.44 0 4.07 2.27 4.07 5.22V21h-3.4v-6.42c0-1.53-.03-3.5-2.13-3.5-2.14 0-2.47 1.67-2.47 3.39V21H9.5V8.75z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="team.html">Our Team</a></li>
 
-  const firstOfMonth = new Date(viewYear, viewMonth, 1);
-  const startOffset = firstOfMonth.getDay();
-  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-  const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7;
-  const todayISO = toISODate(new Date());
+          <li><a href="events.html">Events</a></li>
+          <li><a href="index.html#stories">Stories</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="https://fundraising.fracturedatlas.org/cues-for-cancer-inspiring-hope-onstage-and-off" target="_blank" rel="noopener">Donate</a></li>
+          <li><a href="get-involved.html#volunteer">Volunteer</a></li>
+          <li><a href="get-involved.html#events">Host an Event</a></li>
+          <li><a href="get-involved.html#partners">Corporate Partners</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Norfolk, Virginia</li>
+          <li><a href="mailto:Darrell@cues4cancer.com">Darrell@cues4cancer.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Cues for Cancer Inc. All rights reserved.</span>
+      <span>501(c)(3) Nonprofit Organization</span>
+    </div>
+  </div>
+</footer>
 
-  const gridStart = new Date(viewYear, viewMonth, 1 - startOffset);
+<div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+  <div class="popup-content">
+    <button id="popup-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="card-icon" style="margin:0 auto 1rem;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+    </div>
+    <h3 id="popup-title">Stay in the loop</h3>
+    <p style="margin:.5rem 0 1.25rem;">Join our mailing list for stories, upcoming events, and ways to help.</p>
+    <form id="popup-form">
+      <input type="email" id="popup-email" placeholder="Enter your email" required />
+      <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
+    </form>
+  </div>
+</div>
 
-  const cells = [];
-  for (let i = 0; i < totalCells; i++) {
-    const cellDate = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
-    cells.push({ date: cellDate, inMonth: cellDate.getMonth() === viewMonth });
-  }
-
-  grid.innerHTML = WEEKDAYS.map((w) => `<div class="calendar-weekday">${w}</div>`).join('') +
-    cells.map((cell) => {
-      const iso = toISODate(cell.date);
-      const dayEvents = cell.inMonth ? eventsOnDate(iso) : [];
-      const isToday = iso === todayISO;
-      const classes = ['calendar-day'];
-      if (!cell.inMonth) classes.push('is-other-month');
-      if (isToday) classes.push('is-today');
-      if (dayEvents.length) classes.push('has-event');
-      const dots = dayEvents.slice(0, 3).map(() => '<span class="calendar-dot"></span>').join('');
-      return `<button type="button" class="${classes.join(' ')}" data-date="${iso}" ${dayEvents.length ? '' : 'tabindex="-1"'}>
-        <span class="day-num">${cell.date.getDate()}</span>
-        <span class="calendar-dots">${dots}</span>
-      </button>`;
-    }).join('');
-
-  grid.querySelectorAll('.calendar-day.has-event').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const iso = btn.getAttribute('data-date');
-      openEventModal(eventsOnDate(iso));
-    });
-  });
-}
-
-function renderAgenda() {
-  const list = document.getElementById('agenda-list');
-  if (!list) return;
-  const todayISO = toISODate(new Date());
-  const upcoming = EVENTS.filter((e) => e.date >= todayISO).sort((a, b) => a.date.localeCompare(b.date));
-
-  if (!upcoming.length) {
-    list.innerHTML = '<p>No upcoming events are scheduled right now — check back soon.</p>';
-    return;
-  }
-
-  list.innerHTML = upcoming.map((ev) => {
-    const short = formatShort(ev.date);
-    return `
-      <button type="button" class="agenda-item" data-id="${ev.id}">
-        <span class="agenda-date"><span class="agenda-month">${short.month}</span><span class="agenda-day">${short.day}</span></span>
-        <span class="agenda-info">
-          <span class="agenda-title">${ev.title}</span>
-          <span class="agenda-sub">${ev.time} · ${ev.location}</span>
-        </span>
-        <span class="${tagClass(ev.type)}">${ev.type}</span>
-      </button>
-    `;
-  }).join('');
-
-  list.querySelectorAll('.agenda-item').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const ev = EVENTS.find((e) => e.id === btn.getAttribute('data-id'));
-      if (ev) openEventModal([ev]);
-    });
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.getElementById('cal-grid');
-  if (!grid) return;
-
-  const today = new Date();
-  viewYear = today.getFullYear();
-  viewMonth = today.getMonth();
-
-  renderCalendar();
-  renderAgenda();
-
-  document.getElementById('cal-prev').addEventListener('click', () => {
-    viewMonth -= 1;
-    if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; }
-    renderCalendar();
-  });
-  document.getElementById('cal-next').addEventListener('click', () => {
-    viewMonth += 1;
-    if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
-    renderCalendar();
-  });
-
-  document.getElementById('event-modal-close').addEventListener('click', closeEventModal);
-  document.getElementById('event-modal').addEventListener('click', (e) => {
-    if (e.target.id === 'event-modal') closeEventModal();
-  });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeEventModal(); });
-});
+<script src="main.js"></script>
+</body>
+</html>
