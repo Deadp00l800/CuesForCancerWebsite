@@ -23,7 +23,7 @@ const TEAM = [
   {
     name: 'Rishi Sood',
     title: 'Director of Marketing & External Affairs',
-    photo: 'rishi-sood.webp',
+    photo: 'rishi-sood.jpg',
     bio: [
       'Rishi previously served as Head of Business Development at Music World Entertainment under Dr. Mathew Knowles.',
       'He specializes in aligning artists, athletes, speakers, and brands with mission-driven messaging, helping extend the reach of Cues for Cancer’s story.',
@@ -54,15 +54,6 @@ const TEAM = [
     bio: [
       'Dr. Berger brings over 35 years of experience in pain and palliative care, including service as former chief of pain and palliative care at the National Institutes of Health.',
       'Her ground-breaking research measures psychosocial and spiritual healing, informing how the organization supports whole-person wellbeing.',
-    ],
-  },
-  {
-    name: 'Frederick Thompson',
-    title: 'Director',
-    photo: 'frederick-thompson.webp',
-    bio: [
-      'Frederick is a Senior Sales Executive with 20+ years in B2B sales across SaaS, media, and service sectors.',
-      'He holds a Bachelor of Arts in Business Administration from Springfield College.',
     ],
   },
   {

@@ -31,6 +31,118 @@ const EVENTS = [
     action: { label: 'Watch on WAVY-10', url: 'https://www.wavy.com' },
   },
   {
+    id: 'creative-spark-workshop-sep',
+    title: 'Creative Spark Workshops',
+    date: '2026-09-09',
+    time: '10:30 AM – 11:45 AM',
+    location: 'The Holistic Treehouse, LLC — 1433 Sam\'s Drive, Suite A203, Chesapeake, Virginia 23320',
+    type: 'Workshop',
+    description: [
+      'Creativity. Connection. Healing. — through the power of the performing arts. No experience needed; come have fun and find a healing community through music, theater, and creative expression.',
+      'Cost is pay-what-you-can, accepted at sign-in. This event is sponsored by The Holistic Treehouse.',
+      'Creative Spark Workshops repeat every second Wednesday of the month.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://www.eventbrite.com/e/creative-spark-workshops-tickets-1994720721374?aff=oddtdtcreator' },
+  },
+  {
+    id: 'creative-spark-workshop-oct',
+    title: 'Creative Spark Workshops',
+    date: '2026-10-14',
+    time: '10:30 AM – 11:45 AM',
+    location: 'Treehouse Studio, 1433 Sam\'s Dr Ste 203A, Chesapeake, VA 23320',
+    image: 'creative-spark-oct-2026.jpg',
+    type: 'Workshop',
+    description: [
+      'A safe space to connect, create, and leave feeling grounded through the power of the performing arts.',
+      'Cost is pay-what-you-can, accepted at sign-in.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://www.eventbrite.com/e/creative-spark-workshops-october-tickets-1995175919885?aff=oddtdtcreator' },
+  },
+  {
+    id: 'creative-spark-workshop-nov',
+    title: 'Creative Spark Workshops',
+    date: '2026-11-11',
+    time: '10:30 AM – 11:45 AM',
+    location: 'Treehouse Studio, 1433 Sam\'s Dr Ste 203A, Chesapeake, VA 23320',
+    image: 'creative-spark-nov-2026.jpg',
+    type: 'Workshop',
+    description: [
+      'A safe space to connect, create, and leave feeling grounded through the power of the performing arts.',
+      'Cost is pay-what-you-can, accepted at sign-in.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://www.eventbrite.com/e/creative-spark-workshops-november-tickets-1995176088389?aff=oddtdtcreator' },
+  },
+  {
+    id: 'creative-spark-workshop-dec',
+    title: 'Creative Spark Workshops',
+    date: '2026-12-09',
+    time: '10:30 AM – 11:45 AM',
+    location: 'Treehouse Studio, 1433 Sam\'s Dr Ste 203A, Chesapeake, VA 23320',
+    image: 'creative-spark-dec-2026.jpg',
+    type: 'Workshop',
+    description: [
+      'A safe space to connect, create, and leave feeling grounded through the power of the performing arts.',
+      'Cost is pay-what-you-can, accepted at sign-in.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://www.eventbrite.com/e/1995176092401?aff=oddtdtcreator' },
+  },
+  {
+    id: 'creative-spark-workshop-jan',
+    title: 'Creative Spark Workshops',
+    date: '2027-01-13',
+    time: '10:30 AM – 11:45 AM',
+    location: 'Treehouse Studio, 1433 Sam\'s Dr Ste 203A, Chesapeake, VA 23320',
+    image: 'creative-spark-jan-2027.jpg',
+    type: 'Workshop',
+    description: [
+      'A safe space to connect, create, and leave feeling grounded through the power of the performing arts.',
+      'Cost is pay-what-you-can, accepted at sign-in.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://www.eventbrite.com/e/creative-spark-workshops-january-tickets-1995176109452?aff=oddtdtcreator' },
+  },
+  {
+    id: 'creative-spark-workshop-feb',
+    title: 'Creative Spark Workshops',
+    date: '2027-02-10',
+    time: '10:30 AM – 11:45 AM',
+    location: 'Treehouse Studio, 1433 Sam\'s Dr Ste 203A, Chesapeake, VA 23320',
+    image: 'creative-spark-feb-2027.jpg',
+    type: 'Workshop',
+    description: [
+      'A safe space to connect, create, and leave feeling grounded through the power of the performing arts.',
+      'Cost is pay-what-you-can, accepted at sign-in.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://www.eventbrite.com/e/creative-spark-workshops-february-tickets-1995176137536?aff=oddtdtcreator' },
+  },
+  {
+    id: 'creative-spark-workshop-mar',
+    title: 'Creative Spark Workshops',
+    date: '2027-03-10',
+    time: '10:30 AM – 11:45 AM',
+    location: 'Treehouse Studio, 1433 Sam\'s Dr Ste 203A, Chesapeake, VA 23320',
+    image: 'creative-spark-mar-2027.jpg',
+    type: 'Workshop',
+    description: [
+      'A safe space to connect, create, and leave feeling grounded through the power of the performing arts.',
+      'Cost is pay-what-you-can, accepted at sign-in.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://www.eventbrite.com/e/creative-spark-workshops-march-tickets-1995176147566?aff=oddtdtcreator' },
+  },
+  {
+    id: 'creative-spark-workshop-apr',
+    title: 'Creative Spark Workshops',
+    date: '2027-04-14',
+    time: '10:30 AM – 11:45 AM',
+    location: 'Treehouse Studio, 1433 Sam\'s Dr Ste 203A, Chesapeake, VA 23320',
+    image: 'creative-spark-apr-2027.jpg',
+    type: 'Workshop',
+    description: [
+      'A safe space to connect, create, and leave feeling grounded through the power of the performing arts.',
+      'Cost is pay-what-you-can, accepted at sign-in.',
+    ],
+    action: { label: 'Get Tickets', url: 'https://www.eventbrite.com/e/1995176154587?aff=oddtdtcreator' },
+  },
+  {
     id: 'dream-high-block-party-sep',
     title: 'Hampton Roads Dream High Inc. Community Block Party — Connecting to the Community',
     date: '2026-09-12',
@@ -52,8 +164,15 @@ const EVENTS = [
     type: 'Fundraiser',
     description: [
       'A night celebrating the power of art to heal, as both Hampton Roads and national artists take to our virtual stage. We\'ll also be holding a silent auction during the event.',
-      'Tickets are $30 per streaming device; VIP tickets are $50 and include a talk-back with the performers about their personal stories of how music has helped them heal.',
-      'RSVP before tickets go live, or ask about corporate sponsorship packages, by emailing Darrell@cues4cancer.com.',
+      '<ul class="ticket-tiers">'
+        + '<li><span>General Admission</span><strong>$35</strong></li>'
+        + '<li><span>Supporter Pass</span><strong>$50</strong></li>'
+        + '<li><span>Encore Pass</span><strong>$100</strong></li>'
+        + '<li><span>Standing Ovation VIP</span><strong>$250</strong></li>'
+        + '<li><span>Hope Champion</span><strong>$500</strong></li>'
+        + '<li><span>Presenting Benefactor</span><strong>$1,000</strong></li>'
+        + '</ul>',
+      'Ticket sales end October 17, 2026 at 6:00 PM. Ask about corporate sponsorship packages by emailing Darrell@cues4cancer.com.',
     ],
     action: { label: 'RSVP / Get Tickets', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Curtain%20Call%20of%20Hope%20Benefit%20Concert' },
   },
@@ -90,6 +209,7 @@ function tagClass(type) {
 function eventCardHTML(ev) {
   return `
     <div class="event-card">
+      ${ev.image ? `<img class="event-flyer" src="${ev.image}" alt="${ev.title} flyer" />` : ''}
       <div class="event-card-head">
         <span class="${tagClass(ev.type)}">${ev.type}</span>
         <h3>${ev.title}</h3>
@@ -99,7 +219,7 @@ function eventCardHTML(ev) {
         <span>${ev.time}</span>
         <span>${ev.location}</span>
       </div>
-      <div class="event-desc">${ev.description.map((p) => `<p>${p}</p>`).join('')}</div>
+      <div class="event-desc">${ev.description.map((p) => (p.trim().startsWith('<') ? p : `<p>${p}</p>`)).join('')}</div>
       <a href="${ev.action.url}" ${ev.action.url.startsWith('mailto:') ? '' : 'target="_blank" rel="noopener"'} class="btn btn-primary">${ev.action.label}</a>
     </div>
   `;

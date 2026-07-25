@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeaderScroll();
   initMobileNav();
   initNewsletterPopup();
+  initContactForm();
+  initHonoreeGrid();
   initScrollReveal();
   initStatCounters();
   markActiveNavLink();
@@ -110,6 +112,68 @@ function initNewsletterPopup() {
 
   function validateEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.toLowerCase());
+  }
+}
+
+/* Contact page form: submit via Web3Forms (no backend needed), email goes to Darrell@cues4cancer.com */
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  const status = document.getElementById('contact-form-status');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const originalLabel = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    status.textContent = '';
+    status.style.color = '';
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const result = await response.json();
+      if (result.success) {
+        status.textContent = "Thanks — your message is on its way. We'll be in touch soon.";
+        status.style.color = 'var(--purple-700)';
+        form.reset();
+      } else {
+        status.textContent = 'Something went wrong. Please try again or email Darrell@cues4cancer.com directly.';
+        status.style.color = '#b3261e';
+      }
+    } catch (err) {
+      status.textContent = 'Network error. Please try again or email Darrell@cues4cancer.com directly.';
+      status.style.color = '#b3261e';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    }
+  });
+}
+
+/* #CuesFor honoree cards on the homepage Stories section (pulled from the admin-editable API) */
+async function initHonoreeGrid() {
+  const grid = document.getElementById('honoree-grid');
+  if (!grid) return;
+  try {
+    const res = await fetch('/api/honorees');
+    if (!res.ok) throw new Error('unavailable');
+    const honorees = await res.json();
+    grid.innerHTML = honorees.map((h) => `
+      <a class="honoree-card" href="/honoree/${encodeURIComponent(h.slug)}">
+        ${h.photoKey
+          ? `<img class="honoree-card-photo" src="${h.photoKey}" alt="${h.name}" />`
+          : `<span class="honoree-card-photo" aria-hidden="true">${(h.name || '?').charAt(0)}</span>`}
+        <span class="honoree-card-tag">${h.hashtag}</span>
+      </a>
+    `).join('');
+  } catch (err) {
+    const section = document.getElementById('honoree-section');
+    if (section) section.style.display = 'none';
   }
 }
 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Admin — Cues for Cancer Inc.</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="admin-body">
+
+<header class="site-header is-scrolled">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="logo-icon.png" alt="Cues for Cancer logo" class="brand-mark" />
+      <span class="brand-text">Cues for Cancer — Admin</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Back to Site</a>
+      <button id="logout-btn" class="btn btn-primary" style="display:none;">Log Out</button>
+    </nav>
+  </div>
+</header>
+
+<main class="admin-main">
+  <div class="container">
+
+    <section id="login-view" class="admin-card">
+      <span class="eyebrow">Admin</span>
+      <h2>Sign in</h2>
+      <form id="login-form" class="form-grid" style="margin-top:1rem;max-width:360px;">
+        <div>
+          <label for="login-password">Password</label>
+          <input id="login-password" type="password" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <p id="login-status" class="admin-status"></p>
+      </form>
+    </section>
+
+    <section id="dashboard-view" style="display:none;">
+      <div class="admin-tabs">
+        <button class="admin-tab is-active" data-tab="stories">Stories</button>
+        <button class="admin-tab" data-tab="press">Press</button>
+        <button class="admin-tab" data-tab="honorees">#CuesFor Honorees</button>
+      </div>
+
+      <!-- Stories -->
+      <div class="admin-panel is-active" data-panel="stories">
+        <div class="admin-card">
+          <h3>Add a story / quote</h3>
+          <form id="story-form" class="form-grid" style="margin-top:1rem;">
+            <input type="hidden" name="id" />
+            <div class="field-row field-row--2">
+              <div>
+                <label for="story-author">Author name</label>
+                <input id="story-author" name="author" required />
+              </div>
+              <div>
+                <label for="story-author-title">Author title (optional)</label>
+                <input id="story-author-title" name="authorTitle" />
+              </div>
+            </div>
+            <div>
+              <label for="story-title">Internal title (optional, for your reference)</label>
+              <input id="story-title" name="title" />
+            </div>
+            <div>
+              <label for="story-quote">Quote / story text</label>
+              <textarea id="story-quote" name="quote" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Save Story</button>
+            <p class="admin-status" data-status-for="story-form"></p>
+          </form>
+        </div>
+        <div id="stories-list" class="admin-list"></div>
+      </div>
+
+      <!-- Press -->
+      <div class="admin-panel" data-panel="press">
+        <div class="admin-card">
+          <h3>Add a press mention</h3>
+          <form id="press-form" class="form-grid" style="margin-top:1rem;">
+            <input type="hidden" name="id" />
+            <div class="field-row field-row--2">
+              <div>
+                <label for="press-title">Headline</label>
+                <input id="press-title" name="title" required />
+              </div>
+              <div>
+                <label for="press-outlet">Outlet</label>
+                <input id="press-outlet" name="outlet" placeholder="e.g. WAVY-10" />
+              </div>
+            </div>
+            <div class="field-row field-row--2">
+              <div>
+                <label for="press-date">Date</label>
+                <input id="press-date" name="date" type="date" />
+              </div>
+              <div>
+                <label for="press-url">Link (article or video URL)</label>
+                <input id="press-url" name="url" type="url" placeholder="https://" />
+              </div>
+            </div>
+            <div>
+              <label for="press-summary">Summary</label>
+              <textarea id="press-summary" name="summary"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Save Press Mention</button>
+            <p class="admin-status" data-status-for="press-form"></p>
+          </form>
+        </div>
+        <div id="press-list" class="admin-list"></div>
+      </div>
+
+      <!-- Honorees -->
+      <div class="admin-panel" data-panel="honorees">
+        <div class="admin-card">
+          <p style="color:var(--gray-700);">Select an honoree to edit their photo, story, and the "cues" (tributes) submitted by theaters in their honor.</p>
+          <div class="admin-tabs" id="honoree-tabs" style="margin-top:1rem;"></div>
+        </div>
+        <div id="honoree-editor"></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="admin.js"></script>
+</body>
+</html>
