@@ -4,7 +4,8 @@
    - /media/* file serving from R2
    - JSON API under /api/* (public reads) and /api/admin/* (auth required)
    Required bindings on this Worker: CUES_DATA (KV), MEDIA (R2),
-   ADMIN_PASSWORD (secret), SESSION_SECRET (secret). */
+   ADMIN_PASSWORD (secret), SESSION_SECRET (secret).
+   Secrets Store bindings resolved via resolveSecret() below. */
 
 const SESSION_COOKIE = 'cfc_admin_session';
 const SESSION_TTL_SECONDS = 60 * 60 * 12; // 12 hours
@@ -42,9 +43,17 @@ function timingSafeEqual(a, b) {
   return result === 0;
 }
 
+// Cloudflare Secrets Store bindings expose secrets via an async .get() method
+// instead of a plain string. Support both so local `--var` testing still works.
+async function resolveSecret(binding) {
+  if (binding && typeof binding.get === 'function') return await binding.get();
+  return binding || '';
+}
+
 async function makeSessionCookie(env) {
+  const sessionSecret = await resolveSecret(env.SESSION_SECRET);
   const expires = Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS;
-  const sig = await hmac(String(expires), env.SESSION_SECRET);
+  const sig = await hmac(String(expires), sessionSecret);
   return `${SESSION_COOKIE}=${expires}.${sig}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${SESSION_TTL_SECONDS}`;
 }
 
@@ -65,7 +74,8 @@ async function isAuthed(request, env) {
   if (!expiresStr || !sig) return false;
   const expires = Number(expiresStr);
   if (!Number.isFinite(expires) || expires < Math.floor(Date.now() / 1000)) return false;
-  const expectedSig = await hmac(expiresStr, env.SESSION_SECRET);
+  const sessionSecret = await resolveSecret(env.SESSION_SECRET);
+  const expectedSig = await hmac(expiresStr, sessionSecret);
   return timingSafeEqual(sig, expectedSig);
 }
 
@@ -139,11 +149,15 @@ export default {
 
       // ---- Admin auth ----
       if (pathname === '/api/admin/login' && request.method === 'POST') {
-        if (!env.ADMIN_PASSWORD || !env.SESSION_SECRET) {
+        const [adminPassword, sessionSecret] = await Promise.all([
+          resolveSecret(env.ADMIN_PASSWORD),
+          resolveSecret(env.SESSION_SECRET),
+        ]);
+        if (!adminPassword || !sessionSecret) {
           return jsonResponse({ error: 'Admin password / session secret not configured on this Worker yet.' }, 500);
         }
         const body = await request.json().catch(() => ({}));
-        if (!timingSafeEqual(body.password, env.ADMIN_PASSWORD)) {
+        if (!timingSafeEqual(body.password, adminPassword)) {
           return jsonResponse({ error: 'Incorrect password' }, 401);
         }
         const cookie = await makeSessionCookie(env);
