@@ -253,7 +253,7 @@ p { color: var(--gray-700); }
   .nav-links.is-open { transform: translateX(0); }
   .nav-links .nav-link { width: 100%; padding: .9rem 0; border-bottom: 1px solid rgba(255,255,255,.1); color: var(--white) !important; }
   .site-header.is-scrolled .nav-links .nav-link { color: var(--white) !important; }
-  .has-dropdown { width: 100%; }
+  .has-dropdown { width: 100%; background: var(--purple-900); }
   .dropdown {
     position: static;
     transform: none;
@@ -262,15 +262,21 @@ p { color: var(--gray-700); }
     max-height: 0;
     overflow: hidden;
     box-shadow: none;
-    background: transparent;
+    background: rgba(0, 0, 0, .2);
+    border-radius: var(--radius-sm);
     padding: 0;
     width: 100%;
     transition: max-height .3s var(--ease), padding .3s var(--ease);
   }
   .dropdown::before { display: none; }
-  .has-dropdown.is-open .dropdown { max-height: 400px; padding: .5rem 0 .75rem 1rem; }
+  .has-dropdown.is-open .dropdown { max-height: 400px; padding: .5rem .75rem .75rem; margin-bottom: .5rem; }
   .dropdown a strong, .dropdown a span { color: var(--white); }
   .dropdown a:hover { background: rgba(255,255,255,.08); }
+  /* Desktop's hover/focus-within rules are more specific than the reset above,
+     so tapping a link (which focuses it) would otherwise re-apply the
+     absolute-dropdown transform here too — pin it back down on mobile. */
+  .has-dropdown:hover .dropdown,
+  .has-dropdown:focus-within .dropdown { transform: none; }
   .nav-cta { width: 100%; margin-top: 1.25rem; }
   .nav-cta .btn { width: 100%; justify-content: center; }
 }
