@@ -1,8 +1,14 @@
 name = "newwebsitecfc"
+main = "_worker.js"
 compatibility_date = "2026-07-06"
 
 [assets]
 directory = "."
+binding = "ASSETS"
+
+[[kv_namespaces]]
+binding = "CUES_DATA"
+id = "f227ff087f63414ab71061761e17ed7a"
 
 [observability]
 enabled = false
