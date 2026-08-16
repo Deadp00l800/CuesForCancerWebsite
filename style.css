@@ -976,3 +976,14 @@ textarea { resize: vertical; min-height: 140px; }
 .btn-link { font-weight: 600; font-size: .85rem; color: var(--purple-700); text-decoration: underline; }
 .btn-link.is-danger { color: #b3261e; }
 .admin-photo-preview { width: 96px; height: 96px; object-fit: cover; border-radius: var(--radius-sm); margin-top: .6rem; }
+
+.transparency-note {
+  max-width: 720px;
+  margin: 3rem auto 0;
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+  font-size: .9rem;
+  color: var(--gray-700);
+  background: var(--cream);
+  border-radius: var(--radius-sm);
+}
