@@ -39,6 +39,15 @@ const TEAM = [
     ],
   },
   {
+    name: 'Kathleen "Kat" Kizior, MSSA, CGMS',
+    title: 'Director of Grants',
+    photo: 'kathleen-kizior.webp',
+    bio: [
+      'Kat brings deep expertise in grants management, organizational compliance, and program effectiveness to her role as Director of Grants.',
+      'Her strategic, mission-driven approach strengthens the organization’s impact and helps expand hope and transform more lives.',
+    ],
+  },
+  {
     name: 'Tod Addison',
     title: 'Director',
     photo: 'tod-addison.webp',
