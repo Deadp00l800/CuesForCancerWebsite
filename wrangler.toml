@@ -10,16 +10,6 @@ binding = "ASSETS"
 binding = "CUES_DATA"
 id = "f227ff087f63414ab71061761e17ed7a"
 
-[[secrets_store_secrets]]
-binding = "ADMIN_PASSWORD"
-store_id = "7b6edbfd782541a3b09550e1cbcf3373"
-secret_name = "admin-password"
-
-[[secrets_store_secrets]]
-binding = "SESSION_SECRET"
-store_id = "7b6edbfd782541a3b09550e1cbcf3373"
-secret_name = "SESSION_SECRET"
-
 [observability]
 enabled = false
 head_sampling_rate = 1
