@@ -93,10 +93,11 @@ function initNewsletterPopup() {
     submitBtn.disabled = true;
 
     try {
-      const response = await fetch('https://api.sheetbest.com/sheets/5276babe-64a4-44b8-82d4-3a3da8031e89', {
+      const response = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Email: email }),
+        body: JSON.stringify({ email }),
       });
       submitBtn.textContent = response.ok ? 'Thank you!' : 'Please try again';
       if (response.ok) setTimeout(hide, 1400);

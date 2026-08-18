@@ -47,6 +47,7 @@
         <button class="admin-tab is-active" data-tab="stories">Stories</button>
         <button class="admin-tab" data-tab="press">Press</button>
         <button class="admin-tab" data-tab="honorees">#CuesFor Honorees</button>
+        <button class="admin-tab" data-tab="newsletter">Newsletter Signups</button>
       </div>
 
       <!-- Stories -->
@@ -124,6 +125,15 @@
           <div class="admin-tabs" id="honoree-tabs" style="margin-top:1rem;"></div>
         </div>
         <div id="honoree-editor"></div>
+      </div>
+
+      <!-- Newsletter Signups -->
+      <div class="admin-panel" data-panel="newsletter">
+        <div class="admin-card">
+          <p style="color:var(--gray-700);">Emails collected from the homepage newsletter popup, stored here pending integration with a real mail server (Mailchimp, etc.).</p>
+          <a href="/api/admin/newsletter?format=csv" class="btn btn-primary" style="margin-top:1rem;display:inline-block;width:auto;">Download CSV</a>
+        </div>
+        <div id="newsletter-list" class="admin-list"></div>
       </div>
     </section>
 

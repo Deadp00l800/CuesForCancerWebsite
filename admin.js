@@ -60,6 +60,7 @@ function showDashboard() {
   loadStories();
   loadPress();
   loadHonorees();
+  loadNewsletter();
 }
 
 /* ---------- Stories ---------- */
@@ -398,6 +399,35 @@ async function uploadFile(file) {
   if (!res.ok) throw new Error((await res.json()).error || 'Upload failed');
   const data = await res.json();
   return data.url;
+}
+
+/* ---------- Newsletter Signups ---------- */
+async function loadNewsletter() {
+  const res = await fetch('/api/admin/newsletter', { credentials: 'same-origin' });
+  const signups = await res.json();
+  const list = document.getElementById('newsletter-list');
+  if (!signups.length) {
+    list.innerHTML = '<p class="admin-empty">No signups yet.</p>';
+    return;
+  }
+  list.innerHTML = signups.map((s) => `
+    <div class="admin-list-item">
+      <div>
+        <strong>${escapeHTML(s.email)}</strong>
+        <p class="admin-muted">Subscribed ${new Date(s.subscribedAt).toLocaleDateString()}</p>
+      </div>
+      <div class="admin-list-actions">
+        <button class="btn-link is-danger" data-delete-signup="${escapeAttr(s.email)}">Remove</button>
+      </div>
+    </div>
+  `).join('');
+  list.querySelectorAll('[data-delete-signup]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (!confirm(`Remove ${btn.dataset.deleteSignup} from the newsletter list?`)) return;
+      await fetch(`/api/admin/newsletter/${encodeURIComponent(btn.dataset.deleteSignup)}`, { method: 'DELETE', credentials: 'same-origin' });
+      loadNewsletter();
+    });
+  });
 }
 
 function escapeHTML(str) {

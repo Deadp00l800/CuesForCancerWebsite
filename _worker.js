@@ -147,6 +147,23 @@ export default {
         return jsonResponse(honoree);
       }
 
+      // Newsletter signup (from the homepage popup) — stored in KV pending
+      // integration with a real mail server.
+      if (pathname === '/api/newsletter/subscribe' && request.method === 'POST') {
+        if (!env.CUES_DATA) return missingBindingResponse('CUES_DATA (KV namespace)');
+        const body = await request.json().catch(() => ({}));
+        const email = (body.email || '').trim().toLowerCase();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          return jsonResponse({ error: 'Please enter a valid email address.' }, 400);
+        }
+        const signups = await getJSON(env, 'newsletter_signups', []);
+        if (!signups.some((s) => s.email === email)) {
+          signups.unshift({ email, subscribedAt: Date.now() });
+          await putJSON(env, 'newsletter_signups', signups);
+        }
+        return jsonResponse({ success: true }, 201);
+      }
+
       // ---- Admin auth ----
       if (pathname === '/api/admin/login' && request.method === 'POST') {
         const [adminPassword, sessionSecret] = await Promise.all([
@@ -174,6 +191,28 @@ export default {
       if (pathname.startsWith('/api/admin/')) {
         if (!env.CUES_DATA) return missingBindingResponse('CUES_DATA (KV namespace)');
         if (!(await isAuthed(request, env))) return jsonResponse({ error: 'Unauthorized' }, 401);
+
+        // Newsletter signups: view as JSON, or export as CSV
+        if (pathname === '/api/admin/newsletter' && request.method === 'GET') {
+          const signups = await getJSON(env, 'newsletter_signups', []);
+          if (url.searchParams.get('format') === 'csv') {
+            const rows = ['email,subscribed_at', ...signups.map((s) => `${s.email},${new Date(s.subscribedAt).toISOString()}`)];
+            return new Response(rows.join('\n'), {
+              headers: {
+                'Content-Type': 'text/csv',
+                'Content-Disposition': 'attachment; filename="newsletter-signups.csv"',
+              },
+            });
+          }
+          return jsonResponse(signups);
+        }
+        if (/^\/api\/admin\/newsletter\/[^/]+$/.test(pathname) && request.method === 'DELETE') {
+          const email = decodeURIComponent(pathname.split('/').pop());
+          let signups = await getJSON(env, 'newsletter_signups', []);
+          signups = signups.filter((s) => s.email !== email);
+          await putJSON(env, 'newsletter_signups', signups);
+          return jsonResponse({ success: true });
+        }
 
         // Stories
         if (pathname === '/api/admin/stories' && request.method === 'POST') {
