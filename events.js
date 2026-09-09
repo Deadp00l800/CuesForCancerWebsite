@@ -156,25 +156,19 @@ const EVENTS = [
     action: { label: 'Free — No Tickets Needed', url: 'mailto:Darrell@cues4cancer.com?subject=Question%3A%20Community%20Block%20Party' },
   },
   {
-    id: 'curtain-call-of-hope-oct',
-    title: 'Curtain Call of Hope: Benefit Concert',
-    date: '2026-10-17',
-    time: '7:00 PM – 9:00 PM EST',
-    location: 'Cues for Cancer Virtual Theater Space (online)',
+    id: 'curtain-call-for-hope-nov',
+    title: 'A Curtain Call for Hope: Inaugural Benefit Concert & Silent Auction',
+    date: '2026-11-14',
+    time: '6:00 PM – 9:30 PM EST',
+    location: 'The Pavilion, Ronald Reagan Building & International Trade Center, Washington, D.C.',
     type: 'Fundraiser',
+    image: 'curtain-call-for-hope-flyer.jpg',
     description: [
-      'A night celebrating the power of art to heal, as both Hampton Roads and national artists take to our virtual stage. We\'ll also be holding a silent auction during the event.',
-      '<ul class="ticket-tiers">'
-        + '<li><span>General Admission</span><strong>$35</strong></li>'
-        + '<li><span>Supporter Pass</span><strong>$50</strong></li>'
-        + '<li><span>Encore Pass</span><strong>$100</strong></li>'
-        + '<li><span>Standing Ovation VIP</span><strong>$250</strong></li>'
-        + '<li><span>Hope Champion</span><strong>$500</strong></li>'
-        + '<li><span>Presenting Benefactor</span><strong>$1,000</strong></li>'
-        + '</ul>',
-      'Ticket sales end October 17, 2026 at 6:00 PM. Ask about corporate sponsorship packages by emailing Darrell@cues4cancer.com.',
+      'An unforgettable evening of live performance, community, and giving — featuring a performance and conversation with Jai\'Len Josey, plus a silent auction.',
+      'Cocktail Hour 6:00–7:00 PM · Silent Auction 6:00–8:15 PM · Benefit Concert 7:30–9:30 PM.',
+      'Tickets will go on sale soon. Sponsorship opportunities are open now — see the event page for details.',
     ],
-    action: { label: 'RSVP / Get Tickets', url: 'mailto:Darrell@cues4cancer.com?subject=RSVP%3A%20Curtain%20Call%20of%20Hope%20Benefit%20Concert' },
+    action: { label: 'Event Details & Sponsorship', url: 'curtain-call-for-hope.html' },
   },
 ];
 

@@ -987,3 +987,64 @@ textarea { resize: vertical; min-height: 140px; }
   background: var(--cream);
   border-radius: var(--radius-sm);
 }
+
+/* Sponsorship tier cards (Curtain Call for Hope) */
+.tier-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  margin-top: 2.5rem;
+}
+@media (min-width: 800px) { .tier-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .tier-grid { grid-template-columns: repeat(3, 1fr); } }
+.tier-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+.tier-card--top {
+  background: linear-gradient(160deg, var(--purple-900), var(--purple-700));
+  color: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+@media (min-width: 1100px) { .tier-card--top { grid-column: span 3; } }
+.tier-card--top h3, .tier-card--top .tier-price { color: var(--white); }
+.tier-card--top .tier-badge { color: var(--gold); }
+.tier-card--top ul { columns: 1; }
+@media (min-width: 700px) { .tier-card--top ul { columns: 2; column-gap: 2rem; } }
+.tier-card-head h3 { font-size: 1.3rem; margin-bottom: .3rem; }
+.tier-badge {
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--gold-dark);
+}
+.tier-price {
+  font-family: var(--ff-head);
+  font-size: 2.1rem;
+  color: var(--purple-700);
+  margin: 1rem 0;
+}
+.tier-card ul { list-style: none; margin: 0; }
+.tier-card ul li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: .65rem;
+  font-size: .92rem;
+  line-height: 1.4;
+  break-inside: avoid;
+}
+.tier-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: .5em;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .5;
+}
