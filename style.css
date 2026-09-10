@@ -315,6 +315,7 @@ p { color: var(--gray-700); }
   text-align: center;
   color: var(--white);
 }
+.hero-logo { width: 100px; height: auto; margin: 0 auto 1.25rem; }
 .hero-content .eyebrow { color: var(--gold); }
 .hero-content h1 { color: var(--white); max-width: 900px; margin: 0 auto; }
 .hero-content h1 em { font-style: italic; color: var(--gold); }
