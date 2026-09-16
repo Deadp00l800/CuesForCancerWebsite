@@ -61,6 +61,7 @@ function showDashboard() {
   loadPress();
   loadHonorees();
   loadNewsletter();
+  loadGhostLights();
 }
 
 /* ---------- Stories ---------- */
@@ -426,6 +427,36 @@ async function loadNewsletter() {
       if (!confirm(`Remove ${btn.dataset.deleteSignup} from the newsletter list?`)) return;
       await fetch(`/api/admin/newsletter/${encodeURIComponent(btn.dataset.deleteSignup)}`, { method: 'DELETE', credentials: 'same-origin' });
       loadNewsletter();
+    });
+  });
+}
+
+/* ---------- The Ghost Light ---------- */
+async function loadGhostLights() {
+  const res = await fetch('/api/ghost-light', { credentials: 'same-origin' });
+  const lights = await res.json();
+  const list = document.getElementById('ghostlight-list');
+  if (!lights.length) {
+    list.innerHTML = '<p class="admin-empty">No lights yet.</p>';
+    return;
+  }
+  list.innerHTML = lights.slice().reverse().map((l) => `
+    <div class="admin-list-item">
+      <div>
+        <strong>${escapeHTML(l.name)}</strong>
+        <p class="admin-muted">Lit ${new Date(l.createdAt).toLocaleDateString()}</p>
+        ${l.story ? `<p>${escapeHTML(l.story)}</p>` : ''}
+      </div>
+      <div class="admin-list-actions">
+        <button class="btn-link is-danger" data-delete-light="${escapeAttr(l.id)}">Remove</button>
+      </div>
+    </div>
+  `).join('');
+  list.querySelectorAll('[data-delete-light]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Remove this light from the stage?')) return;
+      await fetch(`/api/admin/ghost-light/${encodeURIComponent(btn.dataset.deleteLight)}`, { method: 'DELETE', credentials: 'same-origin' });
+      loadGhostLights();
     });
   });
 }
