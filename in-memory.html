@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ghost Light | Cues For Cancer</title>
+<meta name="description" content="A living memorial from Cues For Cancer — honoring those our community has lost, one light at a time.">
+
+<!-- ============================================================
+     THE GHOST LIGHT — In Memory / In Celebration section
+     Cues For Cancer
+
+     WHAT THIS IS
+     A dark theater stage. Each submitted name lights a "ghost light"
+     that stays lit forever. Hover (or tap, on mobile) any light to
+     see the name and their story.
+
+     SETUP REQUIRED — see MEMORIAL_SETUP.md for full steps:
+       1. Create a free Supabase project (supabase.com)
+       2. Run the SQL in MEMORIAL_SETUP.md to create the table
+       3. Paste your Project URL + anon public key into the
+          CONFIG block below (search for "SUPABASE_URL")
+       4. Set DEMO_MODE to false
+       5. Drop this file into your GitHub Pages repo and link to it
+
+     Until you complete steps 1–4, DEMO_MODE shows sample lights
+     so you can see how it looks and behaves.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:ital@1&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --stage-purple: #6B3FA0;
+    --lavender-mist: #C4A8E0;
+    --champagne-gold: #D4B896;
+    --soft-curtain: #FAF7FF;
+    --velvet-night: #2B1F3B;
+    --mid-gray: #6B6B7B;
+    --border-rule: #DDD6F0;
+
+    --stage-bg-1: #17101f;
+    --stage-bg-2: #0c0810;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--stage-bg-2);
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--champagne-gold); }
+
+  /* ---------- Header ---------- */
+
+  .memorial-header {
+    background: linear-gradient(180deg, var(--velvet-night) 0%, var(--stage-bg-1) 100%);
+    padding: 64px 24px 40px;
+    text-align: center;
+    border-bottom: 1px solid rgba(212, 184, 150, 0.25);
+  }
+
+  .memorial-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--lavender-mist);
+    margin: 0 0 14px;
+  }
+
+  .memorial-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 52px);
+    margin: 0 0 18px;
+    color: #fff;
+  }
+
+  .memorial-title em {
+    font-style: normal;
+    color: var(--champagne-gold);
+  }
+
+  .memorial-copy {
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #E6DFF0;
+  }
+
+  .memorial-copy .quote {
+    display: block;
+    margin-top: 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--champagne-gold);
+  }
+
+  .memorial-cta-row {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 999px;
+    padding: 13px 28px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-primary {
+    background: var(--champagne-gold);
+    color: var(--velvet-night);
+    box-shadow: 0 0 0 rgba(212,184,150,0);
+  }
+  .btn-primary:hover { box-shadow: 0 6px 22px rgba(212,184,150,0.35); }
+
+  .btn-ghost {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.7); }
+
+  /* ---------- Stage ---------- */
+
+  .stage-wrap {
+    position: relative;
+    padding: 40px 0 0;
+  }
+
+  .stage {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    height: min(70vh, 640px);
+    min-height: 380px;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212,184,150,0.05), transparent 60%),
+      linear-gradient(180deg, var(--stage-bg-1) 0%, #0a060e 70%, #050308 100%);
+    overflow: hidden;
+    border-left: 1px solid rgba(255,255,255,0.04);
+    border-right: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* faint stage floor perspective lines */
+  .stage-floor {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 45%;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.55));
+    pointer-events: none;
+  }
+
+  /* curtain silhouettes */
+  .curtain {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 9%;
+    min-width: 60px;
+    background: linear-gradient(180deg, #1c1424, #08050c);
+    box-shadow: inset -18px 0 30px rgba(0,0,0,0.55);
+    z-index: 2;
+  }
+  .curtain.left { left: 0; border-radius: 0 40px 40px 0; }
+  .curtain.right { right: 0; border-radius: 40px 0 0 40px; box-shadow: inset 18px 0 30px rgba(0,0,0,0.55); }
+
+  .stage-empty-msg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    padding: 0 60px;
+  }
+
+  /* ---------- Ghost lights ---------- */
+
+  .ghost-light {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    z-index: 3;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+    width: 30px;
+    height: 62px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .ghost-light .stand {
+    width: 2px;
+    height: 46px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0));
+    order: 2;
+  }
+
+  .ghost-light .bulb {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff, var(--champagne-gold) 55%, #8a6a3f 100%);
+    box-shadow:
+      0 0 8px 3px rgba(212,184,150,0.9),
+      0 0 26px 10px rgba(212,184,150,0.45),
+      0 0 60px 22px rgba(212,184,150,0.18);
+    animation: flicker 5s ease-in-out infinite;
+  }
+
+  .ghost-light.new-light .bulb {
+    animation: lightUp 1.6s ease-out, flicker 5s ease-in-out 1.6s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; filter: brightness(1); }
+    48% { opacity: 1; filter: brightness(1); }
+    50% { opacity: 0.85; filter: brightness(0.9); }
+    52% { opacity: 1; filter: brightness(1); }
+    76% { opacity: 0.94; }
+  }
+
+  @keyframes lightUp {
+    0% { opacity: 0; box-shadow: 0 0 0 0 rgba(212,184,150,0); transform: scale(0.3); }
+    40% { opacity: 1; box-shadow: 0 0 30px 14px rgba(212,184,150,0.9); transform: scale(1.3); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  .ghost-light:hover .bulb,
+  .ghost-light:focus-visible .bulb,
+  .ghost-light.active .bulb {
+    box-shadow:
+      0 0 12px 5px rgba(255,255,255,0.95),
+      0 0 34px 14px rgba(212,184,150,0.6),
+      0 0 80px 28px rgba(212,184,150,0.25);
+  }
+
+  /* ---------- Hover / tap card ---------- */
+
+  .light-card {
+    position: absolute;
+    z-index: 5;
+    width: 240px;
+    max-width: 70vw;
+    background: var(--soft-curtain);
+    color: var(--velvet-night);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    border-top: 3px solid var(--champagne-gold);
+  }
+
+  .light-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .light-card .name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 17px;
+    margin: 0 0 6px;
+    color: var(--stage-purple);
+  }
+
+  .light-card .bio {
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin: 0;
+    color: var(--velvet-night);
+    white-space: pre-wrap;
+  }
+
+  .light-card .close-x {
+    display: none;
+  }
+
+  @media (hover: none) {
+    .light-card .close-x {
+      display: block;
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 16px;
+      color: var(--mid-gray);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+  }
+
+  /* ---------- Stage caption / count ---------- */
+
+  .stage-caption {
+    max-width: 1100px;
+    margin: 18px auto 0;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--mid-gray);
+    font-size: 13px;
+  }
+
+  .stage-caption .count strong {
+    color: var(--champagne-gold);
+    font-weight: 700;
+  }
+
+  /* ---------- Footer ---------- */
+
+  .memorial-footer {
+    text-align: center;
+    padding: 40px 24px 56px;
+    color: var(--mid-gray);
+    font-size: 13px;
+  }
+  .memorial-footer .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--lavender-mist);
+    margin-bottom: 8px;
+  }
+
+  /* ---------- Modal ---------- */
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,3,8,0.75);
+    z-index: 20;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--soft-curtain);
+    color: var(--velvet-night);
+    width: 100%;
+    max-width: 460px;
+    border-radius: 16px;
+    padding: 30px 28px 26px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--stage-purple);
+    margin: 0 0 6px;
+  }
+
+  .modal .modal-sub {
+    font-size: 13.5px;
+    color: var(--mid-gray);
+    margin: 0 0 20px;
+    line-height: 1.5;
+  }
+
+  .modal label {
+    display: block;
+    font-weight: 700;
+    font-size: 13px;
+    margin: 16px 0 6px;
+    color: var(--velvet-night);
+  }
+
+  .modal input[type="text"],
+  .modal textarea {
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-rule);
+    border-radius: 8px;
+    background: #fff;
+    resize: vertical;
+  }
+
+  .modal textarea { min-height: 110px; }
+
+  .char-count {
+    text-align: right;
+    font-size: 11px;
+    color: var(--mid-gray);
+    margin-top: 4px;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .modal-actions .btn-primary,
+  .modal-actions .btn-ghost {
+    flex: 1;
+  }
+  .modal-actions .btn-ghost {
+    background: transparent;
+    color: var(--velvet-night);
+    border: 1px solid var(--border-rule);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--mid-gray);
+    cursor: pointer;
+  }
+
+  .form-msg {
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+  .form-msg.error { color: #a63d3d; display: block; }
+  .form-msg.success { color: #3d7a4a; display: block; }
+
+  /* honeypot — visually hidden, still in tab order for real fields around it */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .demo-banner {
+    background: var(--stage-purple);
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+  .demo-banner strong { color: var(--champagne-gold); }
+
+  @media (max-width: 640px) {
+    .memorial-header { padding: 48px 18px 32px; }
+    .stage { border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="demoBanner" class="demo-banner" style="display:none;">
+  Preview mode — showing sample lights. <strong>Connect Supabase</strong> in the config to go live. See MEMORIAL_SETUP.md.
+</div>
+
+<header class="memorial-header">
+  <p class="memorial-eyebrow">Cues For Cancer</p>
+  <h1 class="memorial-title">The Ghost <em>Light</em></h1>
+  <div class="memorial-copy">
+    <p>
+      In theater tradition, a stage is never left fully dark. A single lamp —
+      the ghost light — stays lit through the night: a light for those who
+      are no longer there to walk the stage, and a light to guide those who
+      are yet to come.
+    </p>
+    <p>
+      Here, each light belongs to someone our community has loved. Share a
+      name and their story, and a light is placed for them — one that stays
+      lit, always.
+    </p>
+    <span class="quote">"The stage remembers everyone who ever stood on it."</span>
+  </div>
+  <div class="memorial-cta-row">
+    <button class="btn btn-primary" id="openFormBtn">Place a Light</button>
+    <a class="btn btn-ghost" href="#stageSection">View the Stage</a>
+  </div>
+</header>
+
+<div class="stage-wrap" id="stageSection">
+  <div class="stage" id="stage" aria-label="A dark theater stage holding a ghost light for each person remembered">
+    <div class="curtain left"></div>
+    <div class="curtain right"></div>
+    <div class="stage-floor"></div>
+    <div class="stage-empty-msg" id="stageEmptyMsg">
+      The stage is waiting for its first light.
+    </div>
+    <!-- ghost lights are injected here by JS -->
+  </div>
+  <div class="stage-caption">
+    <span class="count">Lights on stage: <strong id="lightCount">0</strong></span>
+    <span>Hover or tap a light to read their story</span>
+  </div>
+</div>
+
+<footer class="memorial-footer">
+  <p class="tagline">Inspiring hope on stage and off</p>
+  <p>Cues For Cancer &middot; Norfolk, Virginia &middot; 501(c)(3) Nonprofit</p>
+</footer>
+
+<!-- ---------- Submission modal ---------- -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
+    <h2>Place a Light</h2>
+    <p class="modal-sub">
+      Share their name and a bit of their story. Their light will appear on
+      the stage right away, for anyone to find.
+    </p>
+    <form id="lightForm" novalidate>
+      <label for="nameInput">Name</label>
+      <input type="text" id="nameInput" maxlength="100" placeholder="Their name" required>
+
+      <label for="bioInput">Their story</label>
+      <textarea id="bioInput" maxlength="600" placeholder="Who they were, what they loved, how they touched this community..." required></textarea>
+      <div class="char-count"><span id="bioCharCount">0</span>/600</div>
+
+      <!-- honeypot: real visitors never see or fill this -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="companyField">Leave blank</label>
+        <input type="text" id="companyField" name="company" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelFormBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submitFormBtn">Light It</button>
+      </div>
+      <p class="form-msg" id="formMsg"></p>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   CONFIG — fill these in once your Supabase project is ready.
+   See MEMORIAL_SETUP.md for step-by-step instructions.
+   ============================================================ */
+const DEMO_MODE = true; // set to false once SUPABASE_URL/KEY below are real
+
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL"; // e.g. https://xxxx.supabase.co
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_PUBLIC_KEY";
+const TABLE_NAME = "memorial_lights";
+
+/* ============================================================ */
+
+const DEMO_LIGHTS = [
+  { id: "demo-1", name: "Maria Thompson", bio: "Loved gardening, terrible puns, and the front row of every CFC show. She never missed opening night.", created_at: "2025-03-11T00:00:00Z" },
+  { id: "demo-2", name: "James \"Jimmy\" Carter", bio: "A retired Navy chief with the loudest laugh in any room. Taught half the neighborhood kids to fish.", created_at: "2025-06-02T00:00:00Z" },
+  { id: "demo-3", name: "Aunt Ruthie", bio: "Made the best sweet tea in Norfolk and always had room at her table for one more.", created_at: "2025-08-20T00:00:00Z" },
+];
+
+let supabaseClient = null;
+if (!DEMO_MODE && window.supabase && SUPABASE_URL.startsWith("http")) {
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (DEMO_MODE) {
+    document.getElementById("demoBanner").style.display = "block";
+  }
+  init();
+});
+
+async function init() {
+  let lights = [];
+
+  if (DEMO_MODE || !supabaseClient) {
+    lights = DEMO_LIGHTS;
+  } else {
+    const { data, error } = await supabaseClient
+      .from(TABLE_NAME)
+      .select("id, name, bio, created_at")
+      .order("created_at", { ascending: true });
+
+    if (error) {
+      console.error("Failed to load memorial lights:", error);
+      lights = [];
+    } else {
+      lights = data || [];
+    }
+
+    // Live updates: new submissions from any visitor appear without reload
+    supabaseClient
+      .channel("memorial_lights_inserts")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: TABLE_NAME },
+        (payload) => addLightToStage(payload.new, true)
+      )
+      .subscribe();
+  }
+
+  renderLights(lights);
+  setupForm();
+}
+
+function renderLights(lights) {
+  const stage = document.getElementById("stage");
+  const emptyMsg = document.getElementById("stageEmptyMsg");
+  emptyMsg.style.display = lights.length ? "none" : "flex";
+  lights.forEach((l) => addLightToStage(l, false));
+  updateCount();
+}
+
+function addLightToStage(light, isNew) {
+  const stage = document.getElementById("stage");
+  document.getElementById("stageEmptyMsg").style.display = "none";
+
+  const pos = hashToPosition(String(light.id));
+
+  const btn = document.createElement("button");
+  btn.className = "ghost-light" + (isNew ? " new-light" : "");
+  btn.style.left = pos.x + "%";
+  btn.style.top = pos.y + "%";
+  btn.setAttribute("aria-label", "Ghost light for " + light.name + ". Press to read their story.");
+  btn.innerHTML = '<span class="stand"></span><span class="bulb"></span>';
+
+  const card = document.createElement("div");
+  card.className = "light-card";
+  card.innerHTML =
+    '<button class="close-x" aria-label="Close">&times;</button>' +
+    '<p class="name"></p>' +
+    '<p class="bio"></p>';
+  card.querySelector(".name").textContent = light.name;
+  card.querySelector(".bio").textContent = light.bio;
+
+  positionCard(card, pos);
+
+  btn.addEventListener("mouseenter", () => card.classList.add("visible"));
+  btn.addEventListener("mouseleave", () => card.classList.remove("visible"));
+  btn.addEventListener("focus", () => card.classList.add("visible"));
+  btn.addEventListener("blur", () => card.classList.remove("visible"));
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = card.classList.contains("visible");
+    document.querySelectorAll(".light-card.visible").forEach((c) => c.classList.remove("visible"));
+    if (!isOpen) card.classList.add("visible");
+  });
+  card.querySelector(".close-x").addEventListener("click", (e) => {
+    e.stopPropagation();
+    card.classList.remove("visible");
+  });
+
+  stage.appendChild(btn);
+  stage.appendChild(card);
+  updateCount();
+}
+
+function positionCard(card, pos) {
+  // Flip the card horizontally near the right edge so it doesn't clip off-stage
+  const leftPct = pos.x > 65 ? Math.max(pos.x - 26, 2) : Math.min(pos.x + 4, 96);
+  card.style.left = leftPct + "%";
+  const topPct = pos.y > 60 ? Math.max(pos.y - 30, 4) : Math.min(pos.y + 6, 80);
+  card.style.top = topPct + "%";
+}
+
+// Deterministic pseudo-random position from an id, so a light doesn't
+// jump around between page loads. Uses FNV-1a + an avalanche finalizer
+// so that even near-identical ids (e.g. sequential UUIDs) land in very
+// different spots on the stage.
+function hashToPosition(id) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < id.length; i++) {
+    h ^= id.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  h ^= h >>> 16;
+  h = Math.imul(h, 0x85ebca6b);
+  h ^= h >>> 13;
+  h = Math.imul(h, 0xc2b2ae35);
+  h ^= h >>> 16;
+  h = h >>> 0;
+
+  const hy = Math.imul(h ^ 0x9e3779b9, 0x27d4eb2d) >>> 0;
+
+  const rx = (h % 1000) / 1000;
+  const ry = (hy % 1000) / 1000;
+  // Keep lights within a believable stage floor area, avoiding the very
+  // top (flyspace) and the curtains at the far edges.
+  const x = 12 + rx * 76;
+  const y = 42 + ry * 50;
+  return { x, y };
+}
+
+function updateCount() {
+  const n = document.querySelectorAll(".ghost-light").length;
+  document.getElementById("lightCount").textContent = n;
+}
+
+function setupForm() {
+  const backdrop = document.getElementById("modalBackdrop");
+  const openBtn = document.getElementById("openFormBtn");
+  const closeBtn = document.getElementById("modalCloseBtn");
+  const cancelBtn = document.getElementById("cancelFormBtn");
+  const form = document.getElementById("lightForm");
+  const bioInput = document.getElementById("bioInput");
+  const bioCount = document.getElementById("bioCharCount");
+  const msg = document.getElementById("formMsg");
+  const submitBtn = document.getElementById("submitFormBtn");
+
+  const open = () => { backdrop.classList.add("open"); document.getElementById("nameInput").focus(); };
+  const close = () => { backdrop.classList.remove("open"); form.reset(); bioCount.textContent = "0"; msg.className = "form-msg"; msg.textContent = ""; };
+
+  openBtn.addEventListener("click", open);
+  closeBtn.addEventListener("click", close);
+  cancelBtn.addEventListener("click", close);
+  backdrop.addEventListener("click", (e) => { if (e.target === backdrop) close(); });
+
+  bioInput.addEventListener("input", () => { bioCount.textContent = bioInput.value.length; });
+
+  // Close any open hover-card when clicking elsewhere on the page
+  document.addEventListener("click", () => {
+    document.querySelectorAll(".light-card.visible").forEach((c) => c.classList.remove("visible"));
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.className = "form-msg";
+    msg.textContent = "";
+
+    const name = document.getElementById("nameInput").value.trim();
+    const bio = bioInput.value.trim();
+    const honeypot = document.getElementById("companyField").value;
+
+    if (honeypot) {
+      // Silently drop likely-bot submissions without tipping them off
+      close();
+      return;
+    }
+
+    if (!name || !bio) {
+      msg.className = "form-msg error";
+      msg.textContent = "Please fill in both a name and a story.";
+      return;
+    }
+
+    if (DEMO_MODE || !supabaseClient) {
+      msg.className = "form-msg error";
+      msg.textContent = "This is a preview — connect Supabase (see MEMORIAL_SETUP.md) to save real submissions.";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Lighting...";
+
+    const { data, error } = await supabaseClient
+      .from(TABLE_NAME)
+      .insert([{ name, bio }])
+      .select();
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Light It";
+
+    if (error) {
+      console.error(error);
+      msg.className = "form-msg error";
+      msg.textContent = "Something went wrong placing that light. Please try again.";
+      return;
+    }
+
+    msg.className = "form-msg success";
+    msg.textContent = "A light has been placed for " + name + ".";
+
+    // If realtime is enabled this light will also arrive via subscription;
+    // adding it here too is harmless if a duplicate id is skipped.
+    if (data && data[0] && !document.querySelector('[aria-label*="' + CSS.escape(data[0].name) + '"]')) {
+      addLightToStage(data[0], true);
+    }
+
+    setTimeout(close, 1400);
+  });
+}
+</script>
+</body>
+</html>
