@@ -48,6 +48,7 @@
         <button class="admin-tab" data-tab="press">Press</button>
         <button class="admin-tab" data-tab="honorees">#CuesFor Honorees</button>
         <button class="admin-tab" data-tab="newsletter">Newsletter Signups</button>
+        <button class="admin-tab" data-tab="ghostlight">The Ghost Light</button>
       </div>
 
       <!-- Stories -->
@@ -134,6 +135,14 @@
           <a href="/api/admin/newsletter?format=csv" class="btn btn-primary" style="margin-top:1rem;display:inline-block;width:auto;">Download CSV</a>
         </div>
         <div id="newsletter-list" class="admin-list"></div>
+      </div>
+
+      <!-- The Ghost Light moderation -->
+      <div class="admin-panel" data-panel="ghostlight">
+        <div class="admin-card">
+          <p style="color:var(--gray-700);">Names and stories submitted on the public Ghost Light tribute page. Visitors can only add a light — removing one here is the only way a light comes down.</p>
+        </div>
+        <div id="ghostlight-list" class="admin-list"></div>
       </div>
     </section>
 
