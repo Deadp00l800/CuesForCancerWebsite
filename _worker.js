@@ -164,6 +164,32 @@ export default {
         return jsonResponse({ success: true }, 201);
       }
 
+      // The Ghost Light — public tribute wall. Anyone can add a light; no one
+      // but admin can remove one, matching the theatre tradition of a lamp
+      // left burning on an empty stage.
+      if (pathname === '/api/ghost-light' && request.method === 'GET') {
+        if (!env.CUES_DATA) return missingBindingResponse('CUES_DATA (KV namespace)');
+        return jsonResponse(await getJSON(env, 'ghost_lights', []));
+      }
+      if (pathname === '/api/ghost-light/submit' && request.method === 'POST') {
+        if (!env.CUES_DATA) return missingBindingResponse('CUES_DATA (KV namespace)');
+        const body = await request.json().catch(() => ({}));
+        // Honeypot: real visitors never fill this hidden field. Bots that do
+        // get a fake success so they don't learn to look elsewhere.
+        if (body.website) return jsonResponse({ success: true }, 201);
+        const name = (body.name || '').trim().slice(0, 80);
+        const story = (body.story || '').trim().slice(0, 600);
+        if (!name) return jsonResponse({ error: 'Please enter a name.' }, 400);
+        const lights = await getJSON(env, 'ghost_lights', []);
+        if (lights.length >= 2000) {
+          return jsonResponse({ error: 'The stage is full for now — please check back soon.' }, 429);
+        }
+        const light = { id: uid(), name, story, createdAt: Date.now() };
+        lights.push(light);
+        await putJSON(env, 'ghost_lights', lights);
+        return jsonResponse(light, 201);
+      }
+
       // ---- Admin auth ----
       if (pathname === '/api/admin/login' && request.method === 'POST') {
         const [adminPassword, sessionSecret] = await Promise.all([
@@ -211,6 +237,15 @@ export default {
           let signups = await getJSON(env, 'newsletter_signups', []);
           signups = signups.filter((s) => s.email !== email);
           await putJSON(env, 'newsletter_signups', signups);
+          return jsonResponse({ success: true });
+        }
+
+        // Ghost Light: remove a submitted light (moderation only — visitors can't edit/delete)
+        if (/^\/api\/admin\/ghost-light\/[^/]+$/.test(pathname) && request.method === 'DELETE') {
+          const id = pathname.split('/').pop();
+          let lights = await getJSON(env, 'ghost_lights', []);
+          lights = lights.filter((l) => l.id !== id);
+          await putJSON(env, 'ghost_lights', lights);
           return jsonResponse({ success: true });
         }
 
