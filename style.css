@@ -1079,3 +1079,99 @@ textarea { resize: vertical; min-height: 140px; }
 .event-spotlight-body p { color: rgba(255,255,255,.85); }
 .event-spotlight-lede { margin-top: .5rem; }
 .event-spotlight-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+
+/* The Ghost Light — public tribute wall */
+.ghost-light-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.ghost-light-stage-section {
+  background: radial-gradient(ellipse at 50% 0%, var(--purple-700) 0%, var(--purple-900) 55%, var(--ink) 100%);
+  padding: 4rem 0 5rem;
+}
+.ghost-light-stage-section .section-head { margin-bottom: 3rem; }
+.ghost-light-stage {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 1.75rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  min-height: 120px;
+}
+.ghost-light-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: rgba(255,255,255,.6);
+  font-style: italic;
+  padding: 2rem 0;
+}
+.ghost-light-hint {
+  text-align: center;
+  margin-top: 2.5rem;
+  color: rgba(255,255,255,.45);
+  font-size: .82rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.ghost-light {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: .5rem 0 0;
+  cursor: pointer;
+}
+.ghost-light-glow {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8e0 0%, var(--gold) 45%, rgba(217,164,65,0) 75%);
+  box-shadow: 0 0 12px 4px rgba(217,164,65,.55), 0 0 28px 10px rgba(217,164,65,.25);
+  transition: box-shadow .25s var(--ease), transform .25s var(--ease);
+}
+.ghost-light-stand {
+  width: 2px;
+  height: 26px;
+  background: linear-gradient(rgba(217,164,65,.5), rgba(217,164,65,.05));
+  margin-top: -1px;
+}
+.ghost-light:hover .ghost-light-glow,
+.ghost-light:focus-visible .ghost-light-glow,
+.ghost-light.is-open .ghost-light-glow {
+  transform: scale(1.15);
+  box-shadow: 0 0 18px 6px rgba(217,164,65,.75), 0 0 40px 16px rgba(217,164,65,.35);
+}
+.ghost-light-card {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  min-width: 160px;
+  max-width: 220px;
+  background: var(--white);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  padding: .75rem .9rem;
+  text-align: left;
+  font-size: .85rem;
+  line-height: 1.4;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .18s var(--ease), transform .18s var(--ease), visibility .18s;
+  z-index: 20;
+}
+.ghost-light-card strong { display: block; color: var(--purple-700); margin-bottom: .2rem; }
+.ghost-light:hover .ghost-light-card,
+.ghost-light:focus-visible .ghost-light-card,
+.ghost-light.is-open .ghost-light-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
