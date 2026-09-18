@@ -1,4 +1,4 @@
-/* Cues for Cancer Inc. — team roster data + click-to-expand bio cards
+/* Cues for Cancer — team roster data + click-to-expand bio cards
    To add a real headshot: set `photo` to an image path (e.g. "darrell-wood.jpg").
    Leave `photo` empty to keep the initials avatar. */
 const TEAM = [
@@ -89,6 +89,14 @@ const TEAM = [
     photo: 'daryl-jenkins.jpeg',
     bio: [
       'Dr. Jenkins contributes strategic and clinical insight to the board, supporting the organization’s mission to serve those affected by cancer with compassion and rigor.',
+    ],
+  },
+  {
+    name: 'Evan Bennett',
+    title: 'Social Media Manager',
+    photo: '',
+    bio: [
+      'Evan manages Cues for Cancer’s social media presence, sharing stories and updates that connect the organization with the theatre community and supporters nationwide.',
     ],
   },
 ];
