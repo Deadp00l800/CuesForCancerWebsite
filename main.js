@@ -1,4 +1,4 @@
-/* Cues for Cancer Inc. — shared site behavior: nav, popup, reveal, counters */
+/* Cues for Cancer — shared site behavior: nav, popup, reveal, counters */
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderScroll();
   initMobileNav();
