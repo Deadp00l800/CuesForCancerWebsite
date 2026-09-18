@@ -1,4 +1,4 @@
-/* Cues for Cancer Inc. — The Ghost Light
+/* Cues for Cancer — The Ghost Light
    A public tribute wall: every submitted name lights a ghost light that
    stays lit permanently. Visitors can add a light but never edit or
    remove one — moderation happens only through the admin dashboard. */
