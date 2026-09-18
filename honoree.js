@@ -1,4 +1,4 @@
-/* Cues for Cancer Inc. — public honoree ("#CuesForX") profile page */
+/* Cues for Cancer — public honoree ("#CuesForX") profile page */
 document.addEventListener('DOMContentLoaded', async () => {
   const slug = location.pathname.replace(/^\/honoree\/?/, '').replace(/\/$/, '');
   const content = document.getElementById('honoree-content');
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!res.ok) throw new Error('not found');
     const honoree = await res.json();
 
-    document.title = `${honoree.hashtag} — Cues for Cancer Inc.`;
+    document.title = `${honoree.hashtag} — Cues for Cancer`;
     heading.textContent = honoree.hashtag;
     breadcrumb.textContent = honoree.hashtag;
 
