@@ -1,4 +1,4 @@
-/* Cues for Cancer Inc. — admin dashboard logic */
+/* Cues for Cancer — admin dashboard logic */
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
   document.getElementById('login-form').addEventListener('submit', handleLogin);
