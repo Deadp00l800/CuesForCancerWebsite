@@ -1,4 +1,4 @@
-/* Cues for Cancer Inc. — admin backend
+/* Cues for Cancer — admin backend
    Serves the static site (via env.ASSETS) and adds:
    - Password-protected /admin dashboard (stories, press, honoree "cues")
    - /media/* file serving from R2
