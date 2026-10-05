@@ -66,6 +66,14 @@ const TEAM = [
     ],
   },
   {
+    name: 'Valerie Costa',
+    title: 'Director of Community Engagement',
+    photo: '',
+    bio: [
+      'As Director of Community Engagement, Valerie builds relationships with partners, volunteers, and neighbors, helping Cues for Cancer connect with the communities it serves.',
+    ],
+  },
+  {
     name: 'Ashley Williams',
     title: 'Programs Advisor',
     photo: 'ashley-williams.webp',
@@ -89,14 +97,6 @@ const TEAM = [
     photo: 'daryl-jenkins.jpeg',
     bio: [
       'Dr. Jenkins contributes strategic and clinical insight to the board, supporting the organization’s mission to serve those affected by cancer with compassion and rigor.',
-    ],
-  },
-  {
-    name: 'Evan Bennett',
-    title: 'Social Media Manager',
-    photo: '',
-    bio: [
-      'Evan manages Cues for Cancer’s social media presence, sharing stories and updates that connect the organization with the theatre community and supporters nationwide.',
     ],
   },
 ];
