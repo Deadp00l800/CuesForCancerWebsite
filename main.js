@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initStatCounters();
   markActiveNavLink();
+  initSupportersBanner();
 });
 
 /* Header background swap + shrink on scroll */
@@ -227,4 +228,44 @@ function initStatCounters() {
     });
   }, { threshold: 0.4 });
   nums.forEach((el) => observer.observe(el));
+}
+
+/* Scrolling "thank you" banner of supporters, shown above the footer on every page.
+   To add a supporter: add an object to SUPPORTERS with the logo file and website.
+   Leave `logo` empty to show the supporter's name until a logo file is added. */
+const SUPPORTERS = [
+  { name: 'Autobell Car Wash', logo: 'supporter-autobell.jpg', url: 'https://www.autobell.com/' },
+  { name: 'Baltimore Orioles', logo: 'supporter-orioles.png', url: 'https://www.mlb.com/orioles' },
+  { name: 'Cheeky Charity', logo: 'supporter-cheeky-charity.png', url: 'https://www.cheekycharity.org/' },
+  { name: 'Choice Broker Services', logo: 'supporter-choice-broker.png', url: 'https://choicebrokerservices.com/' },
+  { name: 'Colley Avenue Copies & Graphics', logo: 'supporter-colley-avenue.jpg', url: 'https://www.colleyavenuecopies.com/' },
+  { name: 'Topgolf', logo: '', url: 'https://topgolf.com/' },
+  { name: 'Virginia Stage Company', logo: '', url: 'https://www.vastage.org/' },
+];
+
+function initSupportersBanner() {
+  const footer = document.querySelector('.site-footer');
+  if (!footer || !SUPPORTERS.length) return;
+
+  const logoLinks = (hidden) => SUPPORTERS.map((s) => `
+    <a class="supporter-logo" href="${s.url}" target="_blank" rel="noopener"
+       ${hidden ? 'aria-hidden="true" tabindex="-1"' : `aria-label="${s.name} — visit website (opens in a new tab)"`}>
+      ${s.logo
+        ? `<img src="${s.logo}" alt="${hidden ? '' : `${s.name} logo`}" loading="lazy" />`
+        : `<span class="supporter-name">${s.name}</span>`}
+    </a>`).join('');
+
+  const section = document.createElement('section');
+  section.className = 'supporters-banner';
+  section.setAttribute('aria-labelledby', 'supporters-heading');
+  // The logo set is rendered twice so the scroll loops seamlessly; the copy is hidden from screen readers.
+  section.innerHTML = `
+    <div class="container">
+      <h2 id="supporters-heading" class="supporters-heading">Thank You to Our Supporters</h2>
+      <p class="supporters-sub">These businesses and organizations make our work possible through monetary and in-kind donations.</p>
+    </div>
+    <div class="supporters-marquee">
+      <div class="supporters-track">${logoLinks(false)}${logoLinks(true)}</div>
+    </div>`;
+  footer.before(section);
 }
