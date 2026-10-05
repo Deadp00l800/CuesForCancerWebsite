@@ -239,8 +239,8 @@ const SUPPORTERS = [
   { name: 'Cheeky Charity', logo: 'supporter-cheeky-charity.png', url: 'https://www.cheekycharity.org/' },
   { name: 'Choice Broker Services', logo: 'supporter-choice-broker.png', url: 'https://choicebrokerservices.com/' },
   { name: 'Colley Avenue Copies & Graphics', logo: 'supporter-colley-avenue.jpg', url: 'https://www.colleyavenuecopies.com/' },
-  { name: 'Topgolf', logo: '', url: 'https://topgolf.com/' },
-  { name: 'Virginia Stage Company', logo: '', url: 'https://www.vastage.org/' },
+  { name: 'Topgolf', logo: 'supporter-topgolf.png', url: 'https://topgolf.com/' },
+  { name: 'Virginia Stage Company', logo: 'supporter-virginia-stage.jpg', url: 'https://www.vastage.org/' },
 ];
 
 function initSupportersBanner() {
