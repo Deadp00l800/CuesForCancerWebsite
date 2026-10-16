@@ -238,7 +238,9 @@ const SUPPORTERS = [
   { name: 'Baltimore Orioles', logo: 'supporter-orioles.png', url: 'https://www.mlb.com/orioles' },
   { name: 'Cheeky Charity', logo: 'supporter-cheeky-charity.png', url: 'https://www.cheekycharity.org/' },
   { name: 'Choice Broker Services', logo: 'supporter-choice-broker.png', url: 'https://choicebrokerservices.com/' },
+  { name: "Clyde's", logo: 'supporter-clydes.jpg', url: 'https://www.clydes.com/' },
   { name: 'Colley Avenue Copies & Graphics', logo: 'supporter-colley-avenue.jpg', url: 'https://www.colleyavenuecopies.com/' },
+  { name: 'Kendra Scott', logo: 'supporter-kendra-scott.png', url: 'https://www.kendrascott.com/' },
   { name: 'Topgolf', logo: 'supporter-topgolf.png', url: 'https://topgolf.com/' },
   { name: 'Virginia Stage Company', logo: 'supporter-virginia-stage.jpg', url: 'https://www.vastage.org/' },
 ];
