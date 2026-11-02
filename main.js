@@ -236,11 +236,14 @@ function initStatCounters() {
 const SUPPORTERS = [
   { name: 'Autobell Car Wash', logo: 'supporter-autobell.jpg', url: 'https://www.autobell.com/' },
   { name: 'Baltimore Orioles', logo: 'supporter-orioles.png', url: 'https://www.mlb.com/orioles' },
+  { name: 'Batten University', logo: 'supporter-batten.png', url: 'https://www.batten.edu/' },
   { name: 'Cheeky Charity', logo: 'supporter-cheeky-charity.png', url: 'https://www.cheekycharity.org/' },
+  { name: 'Chicago Cubs', logo: 'supporter-cubs.png', url: 'https://www.mlb.com/cubs' },
   { name: 'Choice Broker Services', logo: 'supporter-choice-broker.png', url: 'https://choicebrokerservices.com/' },
   { name: "Clyde's", logo: 'supporter-clydes.png', url: 'https://www.clydes.com/' },
   { name: 'Colley Avenue Copies & Graphics', logo: 'supporter-colley-avenue.jpg', url: 'https://www.colleyavenuecopies.com/' },
   { name: 'Kendra Scott', logo: 'supporter-kendra-scott.png', url: 'https://www.kendrascott.com/' },
+  { name: 'McLeskey', logo: 'supporter-mcleskey.png', url: 'https://www.mcleskey.com/' },
   { name: 'Topgolf', logo: 'supporter-topgolf.png', url: 'https://topgolf.com/' },
   { name: 'Virginia Stage Company', logo: 'supporter-virginia-stage.jpg', url: 'https://www.vastage.org/' },
 ];
