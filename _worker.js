@@ -96,6 +96,28 @@ function missingBindingResponse(name) {
   return jsonResponse({ error: `${name} binding is not configured on this Worker yet. Add it under Settings > Bindings.` }, 500);
 }
 
+// Brute-force protection for /api/admin/login: lock an IP out after too many
+// wrong passwords in a short window, tracked in KV.
+const LOGIN_MAX_ATTEMPTS = 8;
+const LOGIN_WINDOW_SECONDS = 15 * 60; // 15 minutes
+
+function clientIP(request) {
+  return request.headers.get('CF-Connecting-IP') || 'unknown';
+}
+
+async function getLoginAttempts(env, ip) {
+  const raw = await env.CUES_DATA.get(`login_fail:${ip}`);
+  return raw ? Number(raw) : 0;
+}
+
+async function recordFailedLogin(env, ip, attempts) {
+  await env.CUES_DATA.put(`login_fail:${ip}`, String(attempts + 1), { expirationTtl: LOGIN_WINDOW_SECONDS });
+}
+
+async function clearLoginAttempts(env, ip) {
+  await env.CUES_DATA.delete(`login_fail:${ip}`);
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -192,6 +214,12 @@ export default {
 
       // ---- Admin auth ----
       if (pathname === '/api/admin/login' && request.method === 'POST') {
+        if (!env.CUES_DATA) return missingBindingResponse('CUES_DATA (KV namespace)');
+        const ip = clientIP(request);
+        const attempts = await getLoginAttempts(env, ip);
+        if (attempts >= LOGIN_MAX_ATTEMPTS) {
+          return jsonResponse({ error: 'Too many failed attempts. Please try again in a few minutes.' }, 429);
+        }
         const [adminPassword, sessionSecret] = await Promise.all([
           resolveSecret(env.ADMIN_PASSWORD),
           resolveSecret(env.SESSION_SECRET),
@@ -201,8 +229,10 @@ export default {
         }
         const body = await request.json().catch(() => ({}));
         if (!timingSafeEqual(body.password, adminPassword)) {
+          await recordFailedLogin(env, ip, attempts);
           return jsonResponse({ error: 'Incorrect password' }, 401);
         }
+        await clearLoginAttempts(env, ip);
         const cookie = await makeSessionCookie(env);
         return jsonResponse({ success: true }, 200, { 'Set-Cookie': cookie });
       }
