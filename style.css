@@ -1055,6 +1055,7 @@ textarea { resize: vertical; min-height: 140px; }
 .event-spotlight {
   background: linear-gradient(160deg, var(--purple-900), var(--purple-700));
   padding: 3rem 0;
+  scroll-margin-top: var(--nav-h);
 }
 .event-spotlight-inner {
   display: grid;

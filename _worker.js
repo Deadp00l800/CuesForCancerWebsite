@@ -134,6 +134,12 @@ export default {
         return env.ASSETS.fetch(new Request(new URL('/honoree', request.url), request));
       }
 
+      // Vanity URL for the benefit concert — sends visitors to the homepage
+      // spotlight banner, where they can buy tickets or bid in the auction.
+      if (pathname === '/benefitconcert' || pathname === '/benefitconcert/' || pathname === '/benefit-concert' || pathname === '/benefit-concert/') {
+        return Response.redirect(new URL('/#benefit-concert', request.url), 302);
+      }
+
       // ---- Media serving from R2 ----
       if (pathname.startsWith('/media/')) {
         if (!env.MEDIA) return missingBindingResponse('MEDIA (R2 bucket)');
