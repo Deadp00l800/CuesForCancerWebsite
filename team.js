@@ -84,7 +84,7 @@ const TEAM = [
   },
   {
     name: 'Dr. Daryl T. Jenkins',
-    title: 'Board Member',
+    title: 'Director of Information Technology',
     photo: 'daryl-jenkins.jpeg',
     bio: [
       'Dr. Jenkins contributes strategic and clinical insight to the board, supporting the organization’s mission to serve those affected by cancer with compassion and rigor.',
