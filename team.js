@@ -48,15 +48,6 @@ const TEAM = [
     ],
   },
   {
-    name: 'Tod Addison',
-    title: 'Director',
-    photo: 'tod-addison.webp',
-    bio: [
-      'Tod is a retired U.S. Army Lieutenant Colonel with more than 30 years of leadership experience.',
-      'He previously commanded the U.S. Military Academy Band and served as Equal Opportunity Program Manager at West Point.',
-    ],
-  },
-  {
     name: 'Dr. Ann Berger',
     title: 'Director of Health Programs',
     photo: 'ann-berger.webp',
