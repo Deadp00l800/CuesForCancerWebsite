@@ -39,6 +39,14 @@ const TEAM = [
     ],
   },
   {
+    name: 'Dr. Daryl T. Jenkins',
+    title: 'Director of Information Technology',
+    photo: 'daryl-jenkins.jpeg',
+    bio: [
+      'Dr. Jenkins contributes strategic and clinical insight to the board, supporting the organization’s mission to serve those affected by cancer with compassion and rigor.',
+    ],
+  },
+  {
     name: 'Kathleen "Kat" Kizior, MSSA, CGMS',
     title: 'Director of Grants',
     photo: 'kathleen-kizior.webp',
@@ -80,14 +88,6 @@ const TEAM = [
     bio: [
       'Christina is a Behavior Technician supporting children and families with developmental growth, emotional regulation, and positive behavioral outcomes.',
       'Her guidance shapes programming for younger family members impacted by a cancer diagnosis in the household.',
-    ],
-  },
-  {
-    name: 'Dr. Daryl T. Jenkins',
-    title: 'Director of Information Technology',
-    photo: 'daryl-jenkins.jpeg',
-    bio: [
-      'Dr. Jenkins contributes strategic and clinical insight to the board, supporting the organization’s mission to serve those affected by cancer with compassion and rigor.',
     ],
   },
 ];
