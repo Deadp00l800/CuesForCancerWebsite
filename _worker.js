@@ -124,6 +124,13 @@ export default {
     const { pathname } = url;
 
     try {
+      // Consolidate SEO signals onto the apex domain — redirect www to the
+      // bare domain, preserving path and query string.
+      if (url.hostname === 'www.cuesforcancer.org') {
+        url.hostname = 'cuesforcancer.org';
+        return Response.redirect(url.toString(), 301);
+      }
+
       // ---- Page shells (client-side JS handles the rest) ----
       // Cloudflare's static asset server 307-redirects "/foo.html" to the clean
       // URL "/foo", so we request the clean path here to get the content directly.

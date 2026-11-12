@@ -19,6 +19,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     heading.textContent = honoree.hashtag;
     breadcrumb.textContent = honoree.hashtag;
 
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', `https://cuesforcancer.org/honoree/${encodeURIComponent(slug)}`);
+
     const cues = honoree.cues || [];
     content.innerHTML = `
       <div class="honoree-profile reveal">
