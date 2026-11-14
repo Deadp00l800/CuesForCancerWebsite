@@ -799,6 +799,8 @@ textarea { resize: vertical; min-height: 140px; }
   font-size: .82rem;
   color: rgba(75,46,131,.6);
 }
+.footer-bottom a { transition: color .2s var(--ease); }
+.footer-bottom a:hover { color: var(--gold-dark); }
 
 /* ==========================================================================
    Reveal-on-scroll utility
