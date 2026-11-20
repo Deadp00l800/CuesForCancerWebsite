@@ -179,7 +179,11 @@
     <h3 id="popup-title">Stay in the loop</h3>
     <p style="margin:.5rem 0 1.25rem;">Join our mailing list for stories, upcoming events, and ways to help.</p>
     <form id="popup-form">
-      <input type="email" id="popup-email" placeholder="Enter your email" required />
+      <div class="field-row field-row--2">
+        <input type="text" id="popup-first-name" placeholder="First name" required autocomplete="given-name" />
+        <input type="text" id="popup-last-name" placeholder="Last name" required autocomplete="family-name" />
+      </div>
+      <input type="email" id="popup-email" placeholder="Enter your email" required autocomplete="email" />
       <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
     </form>
   </div>

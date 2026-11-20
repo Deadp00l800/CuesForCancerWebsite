@@ -65,6 +65,8 @@ function initNewsletterPopup() {
   if (!popup) return;
   const closeBtn = document.getElementById('popup-close');
   const form = document.getElementById('popup-form');
+  const firstNameInput = document.getElementById('popup-first-name');
+  const lastNameInput = document.getElementById('popup-last-name');
   const emailInput = document.getElementById('popup-email');
   const SEEN_KEY = 'cfc_newsletter_seen';
 
@@ -82,7 +84,13 @@ function initNewsletterPopup() {
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const firstName = firstNameInput.value.trim();
+    const lastName = lastNameInput.value.trim();
     const email = emailInput.value.trim();
+    if (!firstName || !lastName) {
+      (firstName ? lastNameInput : firstNameInput).focus();
+      return;
+    }
     if (!validateEmail(email)) {
       emailInput.setAttribute('aria-invalid', 'true');
       emailInput.focus();
@@ -98,7 +106,7 @@ function initNewsletterPopup() {
         method: 'POST',
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ firstName, lastName, email }),
       });
       submitBtn.textContent = response.ok ? 'Thank you!' : 'Please try again';
       if (response.ok) setTimeout(hide, 1400);

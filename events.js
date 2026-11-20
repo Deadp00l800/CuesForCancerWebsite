@@ -170,21 +170,6 @@ const EVENTS = [
     ],
     action: { label: 'Free — No Tickets Needed', url: 'mailto:Darrell@cues4cancer.com?subject=Question%3A%20Stronger%20Than%20Cancer%20Community%20Fair' },
   },
-  {
-    id: 'curtain-call-for-hope-nov',
-    title: 'A Curtain Call for Hope — Virtual Benefit Concert',
-    date: '2026-11-14',
-    time: '7:00 PM – 9:00 PM EST',
-    location: 'Live Virtual Event — watch from anywhere',
-    image: 'curtain-call-for-hope-nov-2026.jpg',
-    type: 'Fundraiser',
-    description: [
-      'Our inaugural benefit concert — extraordinary music, candid conversations, and community impact for a brighter tomorrow. Featuring Jai\'Len Josey, Samantha Rae, Heather Spreves, and host Darrell Wood.',
-      'A silent auction runs alongside the concert — bidding opens November 1 and closes during the broadcast.',
-      '<p><a href="https://www.zeffy.com/en-US/ticketing/cues-for-cancers-silent-auction-2" target="_blank" rel="noopener" style="color:var(--purple-700);font-weight:700;text-decoration:underline;">Bid in the Silent Auction &rarr;</a></p>',
-    ],
-    action: { label: 'Get Tickets', url: 'https://www.zeffy.com/en-US/ticketing/curtain-call-for-hope-virtual-benefit-concert' },
-  },
 ];
 
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

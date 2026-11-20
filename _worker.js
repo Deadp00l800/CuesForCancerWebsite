@@ -141,10 +141,10 @@ export default {
         return env.ASSETS.fetch(new Request(new URL('/honoree', request.url), request));
       }
 
-      // Vanity URL for the benefit concert — sends visitors to the homepage
-      // spotlight banner, where they can buy tickets or bid in the auction.
+      // Vanity URL from the (now concluded) benefit concert — keeps any old
+      // links working by sending visitors to the homepage.
       if (pathname === '/benefitconcert' || pathname === '/benefitconcert/' || pathname === '/benefit-concert' || pathname === '/benefit-concert/') {
-        return Response.redirect(new URL('/#benefit-concert', request.url), 302);
+        return Response.redirect(new URL('/', request.url), 302);
       }
 
       // ---- Media serving from R2 ----
@@ -187,13 +187,18 @@ export default {
       if (pathname === '/api/newsletter/subscribe' && request.method === 'POST') {
         if (!env.CUES_DATA) return missingBindingResponse('CUES_DATA (KV namespace)');
         const body = await request.json().catch(() => ({}));
+        const firstName = (body.firstName || '').trim().slice(0, 80);
+        const lastName = (body.lastName || '').trim().slice(0, 80);
         const email = (body.email || '').trim().toLowerCase();
+        if (!firstName || !lastName) {
+          return jsonResponse({ error: 'Please enter your first and last name.' }, 400);
+        }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
           return jsonResponse({ error: 'Please enter a valid email address.' }, 400);
         }
         const signups = await getJSON(env, 'newsletter_signups', []);
         if (!signups.some((s) => s.email === email)) {
-          signups.unshift({ email, subscribedAt: Date.now() });
+          signups.unshift({ firstName, lastName, email, subscribedAt: Date.now() });
           await putJSON(env, 'newsletter_signups', signups);
         }
         return jsonResponse({ success: true }, 201);
@@ -265,7 +270,9 @@ export default {
         if (pathname === '/api/admin/newsletter' && request.method === 'GET') {
           const signups = await getJSON(env, 'newsletter_signups', []);
           if (url.searchParams.get('format') === 'csv') {
-            const rows = ['email,subscribed_at', ...signups.map((s) => `${s.email},${new Date(s.subscribedAt).toISOString()}`)];
+            const csvCell = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+            const rows = ['first_name,last_name,email,subscribed_at', ...signups.map((s) =>
+              [csvCell(s.firstName), csvCell(s.lastName), csvCell(s.email), csvCell(new Date(s.subscribedAt).toISOString())].join(','))];
             return new Response(rows.join('\n'), {
               headers: {
                 'Content-Type': 'text/csv',

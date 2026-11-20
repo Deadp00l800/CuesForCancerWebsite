@@ -414,8 +414,8 @@ async function loadNewsletter() {
   list.innerHTML = signups.map((s) => `
     <div class="admin-list-item">
       <div>
-        <strong>${escapeHTML(s.email)}</strong>
-        <p class="admin-muted">Subscribed ${new Date(s.subscribedAt).toLocaleDateString()}</p>
+        <strong>${escapeHTML(s.firstName || '')} ${escapeHTML(s.lastName || '')}</strong>
+        <p class="admin-muted">${escapeHTML(s.email)} — Subscribed ${new Date(s.subscribedAt).toLocaleDateString()}</p>
       </div>
       <div class="admin-list-actions">
         <button class="btn-link is-danger" data-delete-signup="${escapeAttr(s.email)}">Remove</button>
