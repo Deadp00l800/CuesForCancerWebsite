@@ -141,6 +141,14 @@ export default {
         return env.ASSETS.fetch(new Request(new URL('/honoree', request.url), request));
       }
 
+      // /home is an alias for the homepage (e.g. for campaign links/QR
+      // codes) — serves the same content without redirecting, so the URL
+      // bar shows /home. index.html's own canonical tag still points back
+      // to "/" as the preferred URL for search engines.
+      if (pathname === '/home' || pathname === '/home/') {
+        return env.ASSETS.fetch(new Request(new URL('/', request.url), request));
+      }
+
       // Vanity URL from the (now concluded) benefit concert — keeps any old
       // links working by sending visitors to the homepage.
       if (pathname === '/benefitconcert' || pathname === '/benefitconcert/' || pathname === '/benefit-concert' || pathname === '/benefit-concert/') {
