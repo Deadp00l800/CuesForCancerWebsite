@@ -108,8 +108,13 @@ function initNewsletterPopup() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName, lastName, email }),
       });
-      submitBtn.textContent = response.ok ? 'Thank you!' : 'Please try again';
-      if (response.ok) setTimeout(hide, 1400);
+      if (response.ok) {
+        // Full navigation (not just hiding the popup) so this lands on a
+        // distinct URL Google Ads can track as a conversion.
+        window.location.href = 'newsletter-thank-you.html';
+        return;
+      }
+      submitBtn.textContent = 'Please try again';
     } catch (err) {
       submitBtn.textContent = 'Network error';
     } finally {
